@@ -15,9 +15,11 @@ https://www.touchsistemas.com.br
 
 `emulator -list-avds`
 
-`emulator -avd Pixel_7_API_34`
+`emulator -avd Pixel_7_Android_13`
 
-`emulator -avd Pixel_7_API_34 -wipe-data`
+`emulator -avd Pixel_2_Android_8`
+
+`emulator -avd Pixel_7_Android_13 -wipe-data`
 
 * enable dark mode - `adb shell "cmd uimode night yes"`
 * disable dark mode - `adb shell "cmd uimode night no"`

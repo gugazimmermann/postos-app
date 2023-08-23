@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { ThemeProvider } from "@rneui/themed";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
@@ -14,6 +15,7 @@ import {
   Inter_900Black,
 } from "@expo-google-fonts/inter";
 import { useColorScheme, View } from "react-native";
+import theme from "../../styles/theme";
 import styles from "../../styles";
 
 SplashScreen.preventAutoHideAsync();
@@ -42,16 +44,18 @@ export default function Layout({ children }) {
   }
 
   const themeContainerStyle =
-    colorScheme === "light" ? styles.base.lightContainer : styles.base.darkContainer;
+    colorScheme === "light" ? styles.layout.lightContainer : styles.layout.darkContainer;
 
   return (
+    <ThemeProvider theme={theme}>
     <SafeAreaProvider>
       <View
-        style={[styles.base.container, themeContainerStyle]}
+        style={[styles.layout.container, themeContainerStyle]}
         onLayout={onLayoutRootView}
       >
         {children}
       </View>
     </SafeAreaProvider>
+    </ThemeProvider>
   );
 }

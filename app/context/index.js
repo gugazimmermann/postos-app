@@ -1,6 +1,6 @@
-import { useRootNavigationState, router, useSegments } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState, createContext, useContext } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRootNavigationState, router, useSegments } from "expo-router";
 
 const removeDataToStorage = async () => {
   try {

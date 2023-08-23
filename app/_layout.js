@@ -1,20 +1,19 @@
 import { Stack } from "expo-router";
-import { ThemeProvider } from '@rneui/themed';
-import { Provider } from "../context/auth";
-import theme from '../styles/theme';
-import { Logo } from "../components";
+import { Provider } from "./context";
+import { amber500 } from "./styles/colors";
+import { Layout, Logo } from "./components";
 
-export default function Layout() {
+export default function AppLayout() {
   return (
-    <ThemeProvider theme={theme}>
-    <Provider>
-      <Stack
-        screenOptions={{
-          headerTitle: (props) => <Logo />,
-          statusBarColor: "#f59e0b",
-        }}
-      />
-    </Provider>
-    </ThemeProvider>
+    <Layout>
+      <Provider>
+        <Stack
+          screenOptions={{
+            headerTitle: (props) => <Logo />,
+            statusBarColor: amber500,
+          }}
+        />
+      </Provider>
+    </Layout>
   );
 }

@@ -9,10 +9,11 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { useAuth } from "../../context/auth";
-import utils from "../../utils";
-import Welcome from "../../components/welcome/Welcome";
-import styles from "../../styles";
+import { useAuth } from "../context";
+import utils from "../utils";
+import { Welcome } from "../components";
+import { amber500, slate800 } from "../styles/colors";
+import styles from "../styles";
 
 export default function Home() {
   const { signIn } = useAuth();
@@ -47,8 +48,20 @@ export default function Home() {
     const selectedVehicle = vehiclesList.find((x) => x.id === value);
     setVehicle(selectedVehicle);
     setCompaniesList([]);
-    saveDataToStorage({ driver, company, companiesList, vehicle: selectedVehicle, vehiclesList });
-    signIn({ driver, company, vehicle: selectedVehicle, companiesList, vehiclesList });
+    saveDataToStorage({
+      driver,
+      company,
+      companiesList,
+      vehicle: selectedVehicle,
+      vehiclesList,
+    });
+    signIn({
+      driver,
+      company,
+      vehicle: selectedVehicle,
+      companiesList,
+      vehiclesList,
+    });
   };
 
   const getVehicles = async (companyID, driverID) => {
@@ -150,13 +163,13 @@ export default function Home() {
     <>
       <Welcome returning={returning} />
       <View style={[styles.signIn.form]}>
-        {loading && <ActivityIndicator size="large" color="#f59e0b" />}
+        {loading && <ActivityIndicator size="large" color={amber500} />}
         {!company.id ? (
           <>
             <TextInput
               style={[styles.signIn.documentInput]}
               placeholder="Digite seu CPF"
-              placeholderTextColor="#1e293b"
+              placeholderTextColor={slate800}
               value={utils.masks.cpf(cpf)}
               onChangeText={(value) => setCPF(utils.masks.cpf(value))}
               keyboardType="numeric"
@@ -165,9 +178,7 @@ export default function Home() {
               style={[styles.signIn.button]}
               onPress={() => getDriver()}
             >
-              <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>
-                INSIRA SEU CPF
-              </Text>
+              <Text style={[styles.signIn.buttonText]}>INSIRA SEU CPF</Text>
             </TouchableOpacity>
           </>
         ) : companiesList.length > 0 && vehiclesList.length === 0 ? (
@@ -188,9 +199,7 @@ export default function Home() {
               style={[styles.signIn.button]}
               onPress={() => reset()}
             >
-              <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>
-                VOLTAR
-              </Text>
+              <Text style={[styles.signIn.buttonText]}>VOLTAR</Text>
             </TouchableOpacity>
           </>
         ) : (
@@ -203,7 +212,11 @@ export default function Home() {
               >
                 <Picker.Item label="Selecione um veículo" value="" />
                 {vehiclesList.map((v) => (
-                  <Picker.Item key={v.id} label={`${v.plate} | ${v.manufacturer} / ${v.model}`} value={v.id} />
+                  <Picker.Item
+                    key={v.id}
+                    label={`${v.plate} | ${v.manufacturer} / ${v.model}`}
+                    value={v.id}
+                  />
                 ))}
               </Picker>
             </View>
@@ -211,9 +224,7 @@ export default function Home() {
               style={[styles.signIn.button]}
               onPress={() => reset()}
             >
-              <Text style={{ color: "#FFF", fontSize: 16, fontWeight: "bold" }}>
-                VOLTAR
-              </Text>
+              <Text style={[styles.signIn.buttonText]}>VOLTAR</Text>
             </TouchableOpacity>
           </>
         )}

@@ -1,22 +1,23 @@
 import { StyleSheet } from "react-native";
+import { amber500, slate100, slate800, white } from "./colors";
 
-const base = StyleSheet.create({
+const layout = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
     fontFamily: "Inter_400Regular",
   },
   lightContainer: {
-    backgroundColor: "#f1f5f9",
+    backgroundColor: slate100,
   },
   darkContainer: {
-    backgroundColor: "#1e293b",
+    backgroundColor: slate800,
   },
   lightThemeText: {
-    color: "#1e293b",
+    color: slate800,
   },
   darkThemeText: {
-    color: "#f1f5f9",
+    color: slate100,
   },
   title: {
     fontSize: 36,
@@ -38,7 +39,7 @@ const logo = StyleSheet.create({
   text: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#1e293b",
+    color: slate800,
     textAlign: "center",
   },
 });
@@ -57,13 +58,13 @@ const signIn = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#1e293b",
+    color: slate800,
     textAlign: "center",
   },
   subtitle: {
     fontSize: 26,
     fontWeight: "bold",
-    color: "#1e293b",
+    color: slate800,
     textAlign: "center",
   },
   form: {
@@ -76,30 +77,30 @@ const signIn = StyleSheet.create({
     height: 50,
     width: "100%",
     borderWidth: 1,
-    borderColor: "#f59e0b",
+    borderColor: amber500,
     borderRadius: 8,
     paddingHorizontal: 15,
     marginBottom: 10,
     fontSize: 16,
-    color: "#1e293b",
-    backgroundColor: "#f1f5f9",
+    color: slate800,
+    backgroundColor: slate100,
   },
   text: {
     fontSize: 21,
     fontWeight: "bold",
-    color: "#1e293b",
+    color: slate800,
     textAlign: "center",
     marginBottom: 10,
   },
   picker: {
     width: "100%",
-    borderColor: "#f59e0b",
+    borderColor: amber500,
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
   },
   button: {
-    backgroundColor: "#f59e0b",
+    backgroundColor: amber500,
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: "center",
@@ -107,8 +108,13 @@ const signIn = StyleSheet.create({
     width: "100%",
     marginBottom: 10,
   },
+  buttonText: {
+    color: white,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 });
 
-const styles = { base, logo, signIn };
+const styles = { layout, logo, signIn };
 
 export default styles;

@@ -5,7 +5,7 @@ export default function Logo() {
   return (
     <View style={[styles.logo.container]}>
       <Image
-        source={require("../../assets/logo.png")}
+        source={require("../../images/logo72.png")}
         style={[styles.logo.image]}
       />
       <Text style={[styles.logo.text]}>Touch Sistemas - Postos</Text>

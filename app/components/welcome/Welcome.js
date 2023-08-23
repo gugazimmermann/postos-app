@@ -5,7 +5,7 @@ export default function Wellcome({ returning }) {
   return (
     <View style={[styles.signIn.container]}>
       <Image
-        source={require("../../assets/logo_big.png")}
+        source={require("../../images/logo144.png")}
         style={[styles.signIn.logo]}
       />
       {!returning ? (

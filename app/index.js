@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Stack } from "expo-router";
-import { Avatar, Dialog } from "@rneui/themed";
 import { Text, View } from "react-native";
-import { useAuth } from "../context/auth";
+import { Avatar, Dialog } from "@rneui/themed";
+import { useAuth } from "./context";
+import { amber500 } from "./styles/colors";
 
 export default function Index() {
   const { user, signOut } = useAuth();
@@ -18,7 +19,7 @@ export default function Index() {
               size={32}
               rounded
               title={user?.driver?.name?.[0] || ""}
-              containerStyle={{ backgroundColor: "#f59e0b" }}
+              containerStyle={{ backgroundColor: amber500 }}
               onPress={toggleDriverAction}
             />
           ),
@@ -39,10 +40,10 @@ export default function Index() {
             />
           )}
           {user?.vehiclesList?.length > 1 && (
-          <Dialog.Button
-            title="Trocar Veículo"
-            onPress={() => console.log("Trocar Veículo")}
-          />
+            <Dialog.Button
+              title="Trocar Veículo"
+              onPress={() => console.log("Trocar Veículo")}
+            />
           )}
           <Dialog.Button title="Sair" onPress={() => signOut()} />
         </Dialog.Actions>
