@@ -8,6 +8,7 @@ export default function AvatarDialog({
   driverAction,
   toggleDriverAction,
   user,
+  signIn,
   signOut,
 }) {
   const [vehiclesAction, setVehiclesAction] = useState(false);
@@ -48,6 +49,7 @@ export default function AvatarDialog({
         </Dialog.Actions>
       </Dialog>
       <VehiclesDialog
+        signIn={signIn}
         vehiclesAction={vehiclesAction}
         toggleVehiclesAction={toggleVehiclesAction}
         vehicle={user?.vehicle}

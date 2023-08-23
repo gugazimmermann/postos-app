@@ -7,7 +7,7 @@ import { amber500 } from "./styles/colors";
 import { AvatarDialog } from "./components/home";
 
 export default function Index() {
-  const { user, signOut } = useAuth();
+  const { user, signIn, signOut } = useAuth();
   const [driverAction, setDriverAction] = useState(false);
 
   const toggleDriverAction = () => setDriverAction(!driverAction);
@@ -32,6 +32,7 @@ export default function Index() {
         driverAction={driverAction}
         toggleDriverAction={toggleDriverAction}
         user={user}
+        signIn={signIn}
         signOut={signOut}
       />
       <View

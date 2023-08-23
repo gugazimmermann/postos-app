@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Dialog, CheckBox } from "@rneui/themed";
+import utils from "../../../utils";
 import { white, slate800 } from "../../../styles/colors";
 
 export default function VehiclesDialog({
+  signIn,
   vehiclesAction,
   toggleVehiclesAction,
   vehicle,
@@ -10,8 +12,11 @@ export default function VehiclesDialog({
 }) {
   const [checked, setChecked] = useState(vehicle);
 
-  const handleChangeVehicle = () => {
-    console.log(checked);
+  const handleChangeVehicle = async () => {
+    const currentdata = await utils.storage.load("driver");
+    await utils.storage.save("driver", { ...currentdata, vehicle: checked });
+    signIn({ ...currentdata, vehicle: checked });
+    toggleVehiclesAction();
   };
 
   return (
