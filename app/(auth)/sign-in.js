@@ -164,7 +164,7 @@ export default function Home() {
       <Welcome returning={returning} />
       <View style={[styles.signIn.form]}>
         {loading && <ActivityIndicator size="large" color={amber500} />}
-        {!company.id ? (
+        {!company.id && companiesList.length === 0 ? (
           <>
             <TextInput
               style={[styles.signIn.documentInput]}
