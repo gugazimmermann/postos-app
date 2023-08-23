@@ -16,9 +16,10 @@ export default function Index() {
         options={{
           headerRight: () => (
             <Avatar
-              size={32}
+              size={36}
               rounded
               title={user?.driver?.name?.[0] || ""}
+              titleStyle={{fontSize: 21}}
               containerStyle={{ backgroundColor: amber500 }}
               onPress={toggleDriverAction}
             />
