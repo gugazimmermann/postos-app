@@ -9,7 +9,9 @@ import { AvatarDialog } from "./components/home";
 export default function Index() {
   const { user, signOut } = useAuth();
   const [driverAction, setDriverAction] = useState(false);
+
   const toggleDriverAction = () => setDriverAction(!driverAction);
+
   return (
     <>
       <Stack.Screen
@@ -19,7 +21,7 @@ export default function Index() {
               size={36}
               rounded
               title={user?.driver?.name?.[0] || ""}
-              titleStyle={{fontSize: 21}}
+              titleStyle={{ fontSize: 21 }}
               containerStyle={{ backgroundColor: amber500 }}
               onPress={toggleDriverAction}
             />
