@@ -47,7 +47,6 @@ export default function Home() {
   const confirmVehicle = (value) => {
     const selectedVehicle = vehiclesList.find((x) => x.id === value);
     setVehicle(selectedVehicle);
-    setCompaniesList([]);
     saveDataToStorage({
       driver,
       company,
@@ -89,7 +88,6 @@ export default function Home() {
   const confirmCompany = (value) => {
     const selectedCompany = companiesList.find((x) => x.id === value);
     setCompany(selectedCompany);
-    setCompaniesList([]);
     saveDataToStorage({ driver, company: selectedCompany, companiesList });
     getVehicles(selectedCompany.id, driver.id);
   };
@@ -164,7 +162,7 @@ export default function Home() {
       <Welcome returning={returning} />
       <View style={[styles.signIn.form]}>
         {loading && <ActivityIndicator size="large" color={amber500} />}
-        {!company.id && companiesList.length === 0 ? (
+        {!company.id && companiesList.length === 0 && vehiclesList.length === 0 ? (
           <>
             <TextInput
               style={[styles.signIn.documentInput]}
@@ -181,7 +179,7 @@ export default function Home() {
               <Text style={[styles.signIn.buttonText]}>INSIRA SEU CPF</Text>
             </TouchableOpacity>
           </>
-        ) : companiesList.length > 0 && vehiclesList.length === 0 ? (
+        ) : !company.id && companiesList.length > 0 && vehiclesList.length === 0 ? (
           <>
             <Text style={[styles.signIn.text]}>Selecione o Empresa</Text>
             <View style={[styles.signIn.picker]}>
