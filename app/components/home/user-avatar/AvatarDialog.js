@@ -7,9 +7,10 @@ import CompaniesDialog from "./CompaniesDialog";
 export default function AvatarDialog({
   driverAction,
   toggleDriverAction,
-  user,
+  setLoading,
   signIn,
   signOut,
+  user,
 }) {
   const [vehiclesAction, setVehiclesAction] = useState(false);
   const [companiesAction, setCompaniesAction] = useState(false);
@@ -52,14 +53,15 @@ export default function AvatarDialog({
         signIn={signIn}
         vehiclesAction={vehiclesAction}
         toggleVehiclesAction={toggleVehiclesAction}
-        vehicle={user?.vehicle}
-        vehiclesList={user?.vehiclesList || []}
+        user={user}
       />
       <CompaniesDialog
+        setLoading={setLoading}
+        signIn={signIn}
         companiesAction={companiesAction}
         toggleCompaniesAction={toggleCompaniesAction}
-        company={user?.company}
-        companiesList={user?.companiesList || []}
+        toggleVehiclesAction={toggleVehiclesAction}
+        user={user}
       />
     </>
   );
