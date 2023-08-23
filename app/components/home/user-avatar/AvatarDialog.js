@@ -28,15 +28,6 @@ export default function AvatarDialog({
           {user?.vehicle?.plate}.
         </Text>
         <Dialog.Actions>
-          {user?.companiesList?.length > 1 && (
-            <Dialog.Button
-              title="Trocar Empresa"
-              onPress={() => {
-                toggleCompaniesAction();
-                toggleDriverAction();
-              }}
-            />
-          )}
           {user?.vehiclesList?.length > 1 && (
             <Dialog.Button
               title="Trocar Veículo"
@@ -46,7 +37,23 @@ export default function AvatarDialog({
               }}
             />
           )}
-          <Dialog.Button title="Sair" onPress={() => signOut()} />
+        </Dialog.Actions>
+        <Dialog.Actions>
+          {user?.companiesList?.length > 1 && (
+            <Dialog.Button
+              title="Trocar Empresa"
+              onPress={() => {
+                toggleCompaniesAction();
+                toggleDriverAction();
+              }}
+            />
+          )}
+        </Dialog.Actions>
+        <Dialog.Actions>
+          <Dialog.Button title="Desconectar" onPress={() => signOut()} />
+        </Dialog.Actions>
+        <Dialog.Actions>
+          <Dialog.Button title="Fechar" onPress={() => toggleDriverAction()} />
         </Dialog.Actions>
       </Dialog>
       <VehiclesDialog
