@@ -1,14 +1,6 @@
 import React, { useEffect, useState, createContext, useContext } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRootNavigationState, router, useSegments } from "expo-router";
-
-const removeDataToStorage = async () => {
-  try {
-    await AsyncStorage.removeItem("driver");
-  } catch (error) {
-    console.error("Error when saving to AsyncStorage:", error);
-  }
-};
+import utils from "../utils";
 
 const AuthContext = createContext(null);
 
@@ -34,9 +26,9 @@ export function Provider(props) {
   useProtectedRoute(user);
 
   const logout = async () => {
-    await removeDataToStorage();
-    setAuth(null)
-  }
+    await utils.storage.remove("driver");
+    setAuth(null);
+  };
 
   return (
     <AuthContext.Provider

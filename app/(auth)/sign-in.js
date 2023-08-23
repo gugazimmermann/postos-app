@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Picker } from "@react-native-picker/picker";
 import {
   View,
@@ -27,11 +26,8 @@ export default function Home() {
   const [vehiclesList, setVehiclesList] = useState([]);
 
   const saveDataToStorage = async (data) => {
-    try {
-      await AsyncStorage.setItem("driver", JSON.stringify(data));
-    } catch (error) {
-      console.error("Error when saving to AsyncStorage:", error);
-    }
+    const currentdata = await utils.storage.load("driver");
+    await utils.storage.save("driver", { ...currentdata, ...data });
   };
 
   const reset = () => {
@@ -41,16 +37,12 @@ export default function Home() {
     setVehicle({});
     setCompaniesList([]);
     setVehiclesList([]);
-    saveDataToStorage({});
   };
 
   const confirmVehicle = (value) => {
     const selectedVehicle = vehiclesList.find((x) => x.id === value);
     setVehicle(selectedVehicle);
     saveDataToStorage({
-      driver,
-      company,
-      companiesList,
       vehicle: selectedVehicle,
       vehiclesList,
     });
@@ -133,23 +125,18 @@ export default function Home() {
   };
 
   const loadDataFromStorage = async () => {
-    try {
-      const driverData = await AsyncStorage.getItem("driver");
-      if (driverData) {
-        const data = JSON.parse(driverData);
-        if (data.driver && data.company) {
-          setReturning({
-            driver: data.driver.name,
-            company: data.company.name,
-          });
-          setDriver(data.driver);
-          setCompany(data.company);
-          if (!data.vehicle) getVehicles(data.company.id, data.driver.id);
-          else signIn(data);
-        }
+    const data = await utils.storage.load("driver");
+    if (data) {
+      if (data.driver && data.company) {
+        setReturning({
+          driver: data.driver.name,
+          company: data.company.name,
+        });
+        setDriver(data.driver);
+        setCompany(data.company);
+        if (!data.vehicle) getVehicles(data.company.id, data.driver.id);
+        else signIn(data);
       }
-    } catch (error) {
-      console.error("Error when loading from AsyncStorage:", error);
     }
   };
 
@@ -162,7 +149,9 @@ export default function Home() {
       <Welcome returning={returning} />
       <View style={[styles.signIn.form]}>
         {loading && <ActivityIndicator size="large" color={amber500} />}
-        {!company.id && companiesList.length === 0 && vehiclesList.length === 0 ? (
+        {!company.id &&
+        companiesList.length === 0 &&
+        vehiclesList.length === 0 ? (
           <>
             <TextInput
               style={[styles.signIn.documentInput]}
@@ -179,7 +168,9 @@ export default function Home() {
               <Text style={[styles.signIn.buttonText]}>INSIRA SEU CPF</Text>
             </TouchableOpacity>
           </>
-        ) : !company.id && companiesList.length > 0 && vehiclesList.length === 0 ? (
+        ) : !company.id &&
+          companiesList.length > 0 &&
+          vehiclesList.length === 0 ? (
           <>
             <Text style={[styles.signIn.text]}>Selecione o Empresa</Text>
             <View style={[styles.signIn.picker]}>
