@@ -38,6 +38,32 @@ const cpf = (value) => {
 
 const masks = { cpf };
 
-const utils = { storage, masks };
+function toDate(d) {
+  if (!d) return;
+  const date = new Date(d);
+  return `${String(date.getDate()).padStart(2, "0")}/${String(
+    date.getMonth() + 1
+  ).padStart(2, "0")}/${date.getFullYear().toString()}`;
+}
+
+function toTime(d) {
+  if (!d) return;
+  const date = new Date(d);
+  return `${String(date.getHours()).padStart(2, "0")}:${String(
+    date.getMinutes()
+  ).padStart(2, "0")}`;
+}
+
+function addTime(d, t) {
+  if (!d || !t) return;
+  const [hoursToAdd, minutesToAdd, secondsToAdd] = t.split(':').map(Number);
+  const date = new Date(d);
+  date.setHours(date.getHours() + hoursToAdd, date.getMinutes() + minutesToAdd, date.getSeconds() + secondsToAdd);
+  return date;
+}
+
+const date = { toDate, toTime, addTime };
+
+const utils = { storage, masks, date };
 
 export default utils;
