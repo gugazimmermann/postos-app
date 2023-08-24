@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { amber500, slate100, slate800, white } from "./colors";
+import { amber500, sky500, slate100, slate500, slate800, white } from "./colors";
 
 const layout = StyleSheet.create({
   container: {
@@ -115,6 +115,74 @@ const signIn = StyleSheet.create({
   },
 });
 
-const styles = { layout, logo, signIn };
+const home = StyleSheet.create({
+  tabview: {
+    flex: 1,
+    justifyContent: "start",
+    alignItems: "center",
+    paddingTop: 4,
+  },
+});
+
+const schedules = StyleSheet.create({
+  container: { backgroundColor: white },
+  listItem: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    padding: 4,
+    width: "100%",
+  },
+  listItemContent: {
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    width: "100%",
+  },
+  listItemText: {
+    fontSize: 18,
+    color: slate500,
+  },
+  listItemDate: {
+    fontSize: 16,
+    color: slate500,
+  },
+  dialog: {
+    flexDirection: "col",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    padding: 8,
+  },
+  dialogTitle: {
+    fontSize: 18,
+    color: slate500,
+  },
+  dialogInfoDone: {
+    fontSize: 21,
+    color: sky500,
+    textAlign: 'center'
+  },
+  dialogInfoAwaiting: {
+    fontSize: 21,
+    color: amber500,
+    textAlign: 'center'
+  },
+  dialogDateContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 8,
+  },
+  dialogDate: {
+    fontSize: 16,
+    color: slate500,
+    textAlign: 'right'
+  },
+  listItemOptions: {
+    fontSize: 16,
+    color: slate500,
+    marginTop: 6,
+  },
+});
+
+const styles = { layout, logo, signIn, home, schedules };
 
 export default styles;
