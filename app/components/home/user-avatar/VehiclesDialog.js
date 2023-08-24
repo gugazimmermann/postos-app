@@ -19,7 +19,7 @@ export default function VehiclesDialog({
 
   return (
     <Dialog isVisible={vehiclesAction} onBackdropPress={toggleVehiclesAction}>
-      <Dialog.Title title="Trocar Veículo" />
+      <Dialog.Title title="TROCAR VEÍCULO" />
       {(user?.vehiclesList || []).map((v) => (
         <CheckBox
           containerStyle={{ backgroundColor: white, borderWidth: 0 }}

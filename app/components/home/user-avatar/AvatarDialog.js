@@ -21,7 +21,7 @@ export default function AvatarDialog({
   return (
     <>
       <Dialog isVisible={driverAction} onBackdropPress={toggleDriverAction}>
-        <Dialog.Title title={user?.driver?.name} />
+        <Dialog.Title title={user?.driver?.name.toLocaleUpperCase()} />
         <Text>
           Você está conectado pela empresa {user?.company?.name} utilizando o
           veículo: {user?.vehicle?.manufacturer} / {user?.vehicle?.model} -{" "}
@@ -30,7 +30,7 @@ export default function AvatarDialog({
         <Dialog.Actions>
           {user?.vehiclesList?.length > 1 && (
             <Dialog.Button
-              title="Trocar Veículo"
+              title="TROCAR VEÍCULO"
               onPress={() => {
                 toggleVehiclesAction();
                 toggleDriverAction();
@@ -41,7 +41,7 @@ export default function AvatarDialog({
         <Dialog.Actions>
           {user?.companiesList?.length > 1 && (
             <Dialog.Button
-              title="Trocar Empresa"
+              title="TROCAR EMPRESA"
               onPress={() => {
                 toggleCompaniesAction();
                 toggleDriverAction();
@@ -50,10 +50,10 @@ export default function AvatarDialog({
           )}
         </Dialog.Actions>
         <Dialog.Actions>
-          <Dialog.Button title="Desconectar" onPress={() => signOut()} />
+          <Dialog.Button title="DESCONECTAR" onPress={() => signOut()} />
         </Dialog.Actions>
         <Dialog.Actions>
-          <Dialog.Button title="Fechar" onPress={() => toggleDriverAction()} />
+          <Dialog.Button title="FECHAR" onPress={() => toggleDriverAction()} />
         </Dialog.Actions>
       </Dialog>
       <VehiclesDialog

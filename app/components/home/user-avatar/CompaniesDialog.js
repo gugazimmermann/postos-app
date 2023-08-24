@@ -47,7 +47,7 @@ export default function CompaniesDialog({
 
   return (
     <Dialog isVisible={companiesAction} onBackdropPress={toggleCompaniesAction}>
-      <Dialog.Title title="Trocar Empresa" />
+      <Dialog.Title title="TROCAR EMPRESA" />
       {(user?.companiesList || []).map((c) => (
         <CheckBox
           containerStyle={{ backgroundColor: white, borderWidth: 0 }}
