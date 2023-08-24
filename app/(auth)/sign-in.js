@@ -106,51 +106,7 @@ export default function Home() {
     try {
       const res = await fetch(`http://192.168.1.2:5000/app/driver/${cpf}`);
       if (!res.ok) throw new Error("Houve um erro ao verificar o CPF");
-      let data = await res.json();
-      console.log(data);
-      data = [
-        {
-          Company: {
-            id: "12554246-c978-4328-81f1-9a8d9c196d29",
-            name: "Barros LTDA",
-          },
-          id: "e98aed6e-bae6-4e65-a2f7-3cd9d1a2b81e",
-          name: "Warley Braga",
-        },
-        {
-          Company: {
-            id: "a2c85f13-e322-4c5a-a94b-589d159efc2a",
-            name: "Barros LTDA 2",
-          },
-          id: "e98aed6e-bae6-4e65-a2f7-3cd9d1a2b81e",
-          name: "Warley Braga",
-        },
-        {
-          Company: {
-            id: "1878444c-8cec-4973-b8b1-e57ec2797989",
-            name: "Barros LTDA 3",
-          },
-          id: "e98aed6e-bae6-4e65-a2f7-3cd9d1a2b81e",
-          name: "Warley Braga 4",
-        },
-        {
-          Company: {
-            id: "1cc44b8e-8737-4790-a00a-3a5ccbbf8a77",
-            name: "Barros LTDA 5",
-          },
-          id: "e98aed6e-bae6-4e65-a2f7-3cd9d1a2b81e",
-          name: "Warley Braga",
-        },
-        {
-          Company: {
-            id: "c3b12e02-3d80-4f08-af23-ad9795e58004",
-            name: "Barros LTDA 6",
-          },
-          id: "e98aed6e-bae6-4e65-a2f7-3cd9d1a2b81e",
-          name: "Warley Braga",
-        },
-      ];
-
+      const data = await res.json();
       if (Array.isArray(data) && data.length) {
         Alert.alert("Confirmação", `Você é ${data[0].name}?`, [
           { text: "Não", onPress: () => setCPF("") },
