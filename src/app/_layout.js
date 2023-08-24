@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
-import { Provider } from "./context";
-import { amber500 } from "./styles/colors";
-import { Layout, Logo } from "./components";
+import { Provider } from "../context";
+import { amber500 } from "../styles/colors";
+import { Layout, Logo } from "../components";
 
 export default function AppLayout() {
   return (
@@ -12,7 +12,9 @@ export default function AppLayout() {
             headerTitle: (props) => <Logo />,
             statusBarColor: amber500,
           }}
-        />
+        >
+          <Stack.Screen name="index" />
+        </Stack>
       </Provider>
     </Layout>
   );

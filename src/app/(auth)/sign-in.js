@@ -8,11 +8,11 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { useAuth } from "../context";
-import utils from "../utils";
-import { Welcome } from "../components";
-import { amber500, slate800 } from "../styles/colors";
-import styles from "../styles";
+import { useAuth } from "../../context";
+import utils from "../../utils";
+import { Welcome } from "../../components";
+import { amber500, slate800 } from "../../styles/colors";
+import styles from "../../styles";
 
 export default function Home() {
   const { signIn } = useAuth();

@@ -2,20 +2,36 @@ import React, { useEffect, useState } from "react";
 import { Stack } from "expo-router";
 import { Avatar } from "@rneui/themed";
 import { Alert } from "react-native";
-import { useAuth } from "./context";
-import { amber500 } from "./styles/colors";
-import { AvatarDialog } from "./components/home";
-import Home from "./Home";
+import { useAuth } from "../context";
+import { amber500 } from "../styles/colors";
+import { Home, AvatarDialog } from "../components/home";
 
 export default function Index() {
   const { user, signIn, signOut } = useAuth();
   const [loading, setLoading] = useState(false);
   const [driverAction, setDriverAction] = useState(false);
+  const [gasStations, setGasStations] = useState([]);
   const [schedules, setSchedules] = useState([]);
 
   const toggleDriverAction = () => setDriverAction(!driverAction);
 
-  const getSchedules = async (companyID, driverID) => {
+  const getGasStations = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `http://192.168.1.2:5000/app/gas-stations/${user?.company?.id}/${user?.vehicle?.id}/${user?.driver?.id}`
+      );
+      if (!res.ok) throw new Error("2 Houve um erro ao carregar postos");
+      const data = await res.json();
+      if (Array.isArray(data) && data.length) setGasStations(data);
+    } catch (error) {
+      Alert.alert("Erro", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getSchedules = async () => {
     setLoading(true);
     try {
       const res = await fetch(
@@ -33,6 +49,8 @@ export default function Index() {
 
   useEffect(() => {
     if (user?.company?.id && user?.vehicle?.id) getSchedules();
+    if (user?.company?.id && user?.vehicle?.id && user?.vehicle?.id)
+      getGasStations();
   }, []);
 
   return (
@@ -63,6 +81,7 @@ export default function Index() {
         user={user}
         loading={loading}
         setLoading={setLoading}
+        gasStations={gasStations}
         schedules={schedules}
       />
     </>

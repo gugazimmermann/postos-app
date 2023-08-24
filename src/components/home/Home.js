@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { ActivityIndicator } from "react-native";
-import { Tab, TabView, Text } from "@rneui/themed";
-import styles from "./styles";
-import { amber500, sky500, white } from "./styles/colors";
-import GasStastions from "./GasStastions";
-import Schedules from "./Schedules";
+import { Tab, TabView } from "@rneui/themed";
+import styles from "../../styles";
+import { amber500, sky500, white } from "../../styles/colors";
+import { GasStations } from "./gas-stations";
+import { Schedules } from "./schedules";
 
-export default function Home({ user, loading, setLoading, schedules }) {
+export default function Home({ loading, gasStations, schedules }) {
   const [tabIndex, setTabIndex] = useState(0);
 
   return (
@@ -45,7 +45,7 @@ export default function Home({ user, loading, setLoading, schedules }) {
       ) : (
         <TabView value={tabIndex} onChange={setTabIndex} animationType="spring">
           <TabView.Item style={[styles.home.tabview]}>
-            <GasStastions user={user} setLoading={setLoading} />
+            <GasStations gasStations={gasStations} />
           </TabView.Item>
           <TabView.Item style={[styles.home.tabview]}>
             <Schedules schedules={schedules} />

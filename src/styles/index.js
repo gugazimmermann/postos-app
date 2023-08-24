@@ -1,5 +1,12 @@
 import { StyleSheet } from "react-native";
-import { amber500, sky500, slate100, slate500, slate800, white } from "./colors";
+import {
+  amber500,
+  sky500,
+  slate100,
+  slate500,
+  slate800,
+  white,
+} from "./colors";
 
 const layout = StyleSheet.create({
   container: {
@@ -124,12 +131,87 @@ const home = StyleSheet.create({
   },
 });
 
-const schedules = StyleSheet.create({
-  container: { backgroundColor: white },
+const gasStation = StyleSheet.create({
+  container: {
+    backgroundColor: white,
+    marginBottom: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 16,
+  },
+  listItemButton: {
+    flex: 1,
+    justifyContent: "center",
+  },
   listItem: {
     justifyContent: "flex-start",
     alignItems: "center",
-    padding: 4,
+    width: "100%",
+  },
+  listItemContent: {
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    width: "100%",
+  },
+  listItemName: {
+    fontSize: 18,
+    color: slate500,
+  },
+  listItemAddress: {
+    fontSize: 16,
+    color: slate500,
+  },
+  listItemCity: {
+    fontSize: 18,
+    color: slate500,
+  },
+  dialog: {
+    flexDirection: "col",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    padding: 8,
+  },
+  dialogTitle: {
+    fontSize: 18,
+    color: slate500,
+  },
+  dialogInfoDone: {
+    fontSize: 21,
+    color: sky500,
+    textAlign: "center",
+  },
+  dialogInfoAwaiting: {
+    fontSize: 21,
+    color: amber500,
+    textAlign: "center",
+  },
+  dialogDateContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 8,
+  },
+  dialogDate: {
+    fontSize: 16,
+    color: slate500,
+    textAlign: "right",
+  },
+  listItemOptions: {
+    fontSize: 16,
+    color: slate500,
+    marginTop: 6,
+  },
+});
+
+const schedules = StyleSheet.create({
+  container: {
+    backgroundColor: white,
+    marginBottom: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 16,
+  },
+  listItem: {
+    justifyContent: "flex-start",
+    alignItems: "center",
     width: "100%",
   },
   listItemContent: {
@@ -158,12 +240,12 @@ const schedules = StyleSheet.create({
   dialogInfoDone: {
     fontSize: 21,
     color: sky500,
-    textAlign: 'center'
+    textAlign: "center",
   },
   dialogInfoAwaiting: {
     fontSize: 21,
     color: amber500,
-    textAlign: 'center'
+    textAlign: "center",
   },
   dialogDateContainer: {
     flexDirection: "row",
@@ -174,7 +256,7 @@ const schedules = StyleSheet.create({
   dialogDate: {
     fontSize: 16,
     color: slate500,
-    textAlign: 'right'
+    textAlign: "right",
   },
   listItemOptions: {
     fontSize: 16,
@@ -183,6 +265,6 @@ const schedules = StyleSheet.create({
   },
 });
 
-const styles = { layout, logo, signIn, home, schedules };
+const styles = { layout, logo, signIn, home, gasStation, schedules };
 
 export default styles;

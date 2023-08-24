@@ -56,14 +56,45 @@ function toTime(d) {
 
 function addTime(d, t) {
   if (!d || !t) return;
-  const [hoursToAdd, minutesToAdd, secondsToAdd] = t.split(':').map(Number);
+  const [hoursToAdd, minutesToAdd, secondsToAdd] = t.split(":").map(Number);
   const date = new Date(d);
-  date.setHours(date.getHours() + hoursToAdd, date.getMinutes() + minutesToAdd, date.getSeconds() + secondsToAdd);
+  date.setHours(
+    date.getHours() + hoursToAdd,
+    date.getMinutes() + minutesToAdd,
+    date.getSeconds() + secondsToAdd
+  );
   return date;
 }
 
 const date = { toDate, toTime, addTime };
 
-const utils = { storage, masks, date };
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  lat1 = parseFloat(lat1);
+  lon1 = parseFloat(lon1);
+  lat2 = parseFloat(lat2);
+  lon2 = parseFloat(lon2);
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+const orderByCoord = (gasStations, lat, long) => {
+  if (!Array.isArray(gasStations) || !gasStations.length) return [];
+  return gasStations.sort((a, b) => {
+    const distanceA = calculateDistance(lat, long, a.latitude, a.longitude);
+    const distanceB = calculateDistance(lat, long, b.latitude, b.longitude);
+    return distanceA - distanceB;
+  });
+};
+
+const coords = { orderByCoord, calculateDistance };
+
+const utils = { storage, masks, date, coords };
 
 export default utils;

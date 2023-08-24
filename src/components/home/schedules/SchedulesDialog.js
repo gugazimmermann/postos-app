@@ -1,8 +1,8 @@
 import { View, Text } from "react-native";
-import { Dialog, Icon } from "@rneui/themed";
+import { Dialog } from "@rneui/themed";
 import utils from "../../../utils";
-import styles from "../../../styles";
 import { AwaitingIcon, ConfirmedIcon, DoneIcon } from "../icons";
+import styles from "../../../styles";
 
 export default function SchedulesDialog({
   scheduleAction,

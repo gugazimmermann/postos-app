@@ -1,12 +1,11 @@
-import { ListItem, Icon } from "@rneui/themed";
+import { ListItem } from "@rneui/themed";
 import utils from "../../../utils";
-import styles from "../../../styles";
 import { AwaitingIcon, ConfirmedIcon, DoneIcon } from "../icons";
+import styles from "../../../styles";
 
 export default function SchedulesItem({ schedule, showSchedule }) {
   return (
     <ListItem
-      key={schedule.id}
       bottomDivider
       style={[styles.schedules.listItem]}
       containerStyle={styles.schedules.container}

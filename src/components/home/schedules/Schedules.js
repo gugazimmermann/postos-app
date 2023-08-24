@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { Text } from "@rneui/themed";
-import { SchedulesItem, SchedulesDialog } from "./components/home";
+import SchedulesItem from "./SchedulesItem";
+import SchedulesDialog from "./SchedulesDialog";
 
 export default function Schedules({ schedules }) {
   const [scheduleAction, setScheduleAction] = useState(false);
