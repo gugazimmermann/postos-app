@@ -36,7 +36,12 @@ const cpf = (value) => {
     .replace(/(\d{3})(\d)/, "$1-$2");
 };
 
-const masks = { cpf };
+const callPhone = (value) => {
+  if (!value) return;
+  return value.replace(/\D+/g, "");
+};
+
+const masks = { cpf, callPhone };
 
 function toDate(d) {
   if (!d) return;
@@ -74,12 +79,14 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
   lat2 = parseFloat(lat2);
   lon2 = parseFloat(lon2);
   const R = 6371;
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 }
