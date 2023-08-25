@@ -5,6 +5,17 @@ https://www.touchsistemas.com.br
 
 ## usefull commands
 
+### IP
+
+* hostname -I
+
+My IPs:
+
+win: 192.168.249.7
+
+note: 192.168.249.7
+
+
 #### emulator
 
 `npx expo start`

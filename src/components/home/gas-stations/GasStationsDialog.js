@@ -142,7 +142,9 @@ export default function GasStationsDialog({
         {gasStation?.driver?.products?.length > 0 ? (
           <View style={styles.gasStation.dialogContactContainer}>
             <Pressable
-              onPress={() => openProductsList(gasStation.driver.products, gasStation.name)}
+              onPress={() =>
+                openProductsList(gasStation.driver.products, gasStation.name)
+              }
             >
               <Text style={{ marginRight: theme.spacing.sm }}>
                 {gasStation?.driver?.products?.length} Produtos Autorizados
@@ -167,7 +169,11 @@ export default function GasStationsDialog({
           { padding: theme.spacing.md },
         ]}
       >
-        {handleSignatureTypes(gasStation?.driver?.signatures || [])}
+        {gasStation?.driver?.signatures.length > 0 ? (
+          handleSignatureTypes(gasStation.driver.signatures)
+        ) : (
+          <Text>Nenhuma Assinatura Cadastrada</Text>
+        )}
       </View>
 
       <Dialog.Actions>

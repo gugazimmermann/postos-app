@@ -65,7 +65,7 @@ export default function Home() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://192.168.1.2:5000/app/vehicles/${companyID}/${driverID}`
+        `http://192.168.249.7:5000/app/vehicles/${companyID}/${driverID}`
       );
       if (!res.ok) throw new Error("Houve um erro ao carregar veículos");
       const data = await res.json();
@@ -110,7 +110,7 @@ export default function Home() {
   const getDriver = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://192.168.1.2:5000/app/driver/${cpf}`);
+      const res = await fetch(`http://192.168.249.7:5000/app/driver/${cpf}`);
       if (!res.ok) throw new Error("Houve um erro ao verificar o CPF");
       const data = await res.json();
       if (Array.isArray(data) && data.length) {
