@@ -107,6 +107,7 @@ const theme = createTheme({
     DialogButton: (props, theme) => ({
       titleStyle: {
         color: theme.colors.text,
+        fontWeight: 'bold',
       },
       buttonStyle: {
         marginVertical: theme.spacing.sm,
@@ -189,7 +190,7 @@ const theme = createTheme({
       },
     }),
   },
-  mode: "dark",
+  mode: "light",
 });
 
 export default theme;

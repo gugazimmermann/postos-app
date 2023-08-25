@@ -19,7 +19,12 @@ export default function AppLayout() {
                     headerStyle: { backgroundColor: theme.colors.background },
                     statusBarColor: theme.colors.primary,
                   }}
-                />
+                >
+                  <Stack.Screen
+                    name="DriverGasStationProducts"
+                    options={{ presentation: "modal" }}
+                  />
+                </Stack>
               </ThemeProvider>
             )}
           </ThemeConsumer>

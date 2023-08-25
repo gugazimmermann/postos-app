@@ -4,10 +4,13 @@ import { AwaitingIcon, ConfirmedIcon, DoneIcon } from "../../icons";
 
 export default function SchedulesItem({ schedule, showSchedule }) {
   const { theme } = useTheme();
-  
+
   return (
     <ListItem
       onPress={() => showSchedule(schedule)}
+      containerStyle={{
+        paddingHorizontal: theme.spacing.lg,
+      }}
     >
       {schedule.done ? (
         <DoneIcon size={32} color={theme.colors.secondary} />
@@ -17,17 +20,11 @@ export default function SchedulesItem({ schedule, showSchedule }) {
         <AwaitingIcon size={32} color={theme.colors.grey4} />
       )}
       <ListItem.Content>
-        <ListItem.Title>
-          {schedule.ScheduleService.name}
-        </ListItem.Title>
-        <ListItem.Subtitle>
-          {schedule.GasStation.name}
-        </ListItem.Subtitle>
+        <ListItem.Title>{schedule.ScheduleService.name}</ListItem.Title>
+        <ListItem.Subtitle>{schedule.GasStation.name}</ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.Content right>
-        <ListItem.Title>
-          {utils.date.toDate(schedule.date)}
-        </ListItem.Title>
+        <ListItem.Title>{utils.date.toDate(schedule.date)}</ListItem.Title>
         <ListItem.Subtitle>
           {utils.date.toTime(schedule.date)} -{" "}
           {utils.date.toTime(

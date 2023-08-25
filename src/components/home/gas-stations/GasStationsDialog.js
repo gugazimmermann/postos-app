@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import { useTheme, Dialog, Text, Divider } from "@rneui/themed";
@@ -31,7 +31,7 @@ export default function GasStationsDialog({
 
   const openMap = () => {
     router.push({
-      pathname: "/Map",
+      pathname: "/MapRoute",
       params: {
         gasStation: JSON.stringify(gasStation),
       },
@@ -61,6 +61,16 @@ export default function GasStationsDialog({
           color={signature.active ? theme.colors.success : theme.colors.grey3}
         />
       );
+    });
+  };
+
+  const openProductsList = (products, name) => {
+    router.push({
+      pathname: "/DriverGasStationProducts",
+      params: {
+        products: JSON.stringify(products),
+        name: name,
+      },
     });
   };
 
@@ -131,9 +141,13 @@ export default function GasStationsDialog({
       >
         {gasStation?.driver?.products?.length > 0 ? (
           <View style={styles.gasStation.dialogContactContainer}>
-            <Text style={{ marginRight: theme.spacing.sm }}>
-              {gasStation?.driver?.products?.length} Produtos Autorizados
-            </Text>
+            <Pressable
+              onPress={() => openProductsList(gasStation.driver.products, gasStation.name)}
+            >
+              <Text style={{ marginRight: theme.spacing.sm }}>
+                {gasStation?.driver?.products?.length} Produtos Autorizados
+              </Text>
+            </Pressable>
             <OpenIcon size={26} color={theme.colors.text} />
           </View>
         ) : (

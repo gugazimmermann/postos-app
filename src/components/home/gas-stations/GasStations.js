@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
-import { useTheme, Text } from "@rneui/themed";
+import { router } from "expo-router";
+import { View, ScrollView } from "react-native";
+import { useTheme, Text, FAB } from "@rneui/themed";
 import { useLocation } from "../../../context/location";
 import utils from "../../../utils";
 import GasStationsItem from "./GasStationsItem";
@@ -22,7 +23,6 @@ export default function GasStations({ gasStations }) {
   };
 
   const handleGasStationsData = (data) => {
-    console.log(location)
     let orderData = null;
     if (location?.latitude && location?.longitude) {
       orderData = data.map((g) => ({
@@ -44,6 +44,7 @@ export default function GasStations({ gasStations }) {
         location.longitude
       );
     }
+    console.log(JSON.stringify(orderData, undefined, 2));
     setGasStationsData(orderData || data);
   };
 
@@ -138,23 +139,47 @@ export default function GasStations({ gasStations }) {
         Postos
       </Text>
       <View style={{ width: "100%" }}>
-        {gasStationsData.length !== 0 ? (
-          gasStationsData.map((gasStation, index) => (
-            <GasStationsItem
-              key={gasStation.id || index}
-              gasStation={gasStation}
-              showGasStation={showGasStation}
-            />
-          ))
-        ) : (
-          <Text h4 style={{ textAlign: 'center'}}>Nenhum Posto Cadastrado</Text>
-        )}
+        <ScrollView>
+          {gasStationsData.length !== 0 ? (
+            gasStationsData.map((gasStation, index) => (
+              <GasStationsItem
+                key={gasStation.id || index}
+                gasStation={gasStation}
+                showGasStation={showGasStation}
+              />
+            ))
+          ) : (
+            <Text h4 style={{ textAlign: "center" }}>
+              Nenhum Posto Cadastrado
+            </Text>
+          )}
+        </ScrollView>
         <GasStationsDialog
           gasStationAction={gasStationAction}
           toggleGasStationAction={toggleGasStationAction}
           gasStation={selectedGasStation}
         />
       </View>
+      {gasStationsData.length !== 0 && (
+        <FAB
+          placement="right"
+          visible={true}
+          icon={{
+            name: "map-marker-multiple",
+            type: "material-community",
+            color: theme.colors.white,
+          }}
+          color={theme.colors.primary}
+          onPress={() =>
+            router.push({
+              pathname: "/MapGasStations",
+              params: {
+                gasStations: JSON.stringify(gasStationsData),
+              },
+            })
+          }
+        />
+      )}
     </>
   );
 }

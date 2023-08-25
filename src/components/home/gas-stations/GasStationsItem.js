@@ -17,7 +17,7 @@ export default function GasStationsItem({ gasStation, showGasStation }) {
           onPress={() => {
             reset();
             router.push({
-              pathname: "/Map",
+              pathname: "/MapRoute",
               params: {
                 gasStation: JSON.stringify(gasStation),
               },
