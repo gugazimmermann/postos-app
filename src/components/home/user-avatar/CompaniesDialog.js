@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
 import { useTheme, Dialog, CheckBox } from "@rneui/themed";
-import { white, slate800 } from "../../../styles/colors";
 import utils from "../../../utils";
 
 export default function CompaniesDialog({

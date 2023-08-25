@@ -1,7 +1,6 @@
 import { router } from "expo-router";
 import { useTheme, ListItem, Button } from "@rneui/themed";
 import { CircleIcon, MapMarkerIcon } from "../../icons";
-import { slate500 } from "../../../styles/colors";
 import styles from "../../../styles";
 
 export default function GasStationsItem({ gasStation }) {

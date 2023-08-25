@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { amber500, sky500, slate500, white } from "./colors";
 
 const layout = StyleSheet.create({
   container: {

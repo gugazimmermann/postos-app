@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useTheme, Dialog, CheckBox } from "@rneui/themed";
 import utils from "../../../utils";
-import { white, slate800 } from "../../../styles/colors";
 
 export default function VehiclesDialog({
   signIn,
