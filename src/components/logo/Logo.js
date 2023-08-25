@@ -1,14 +1,27 @@
-import { View, Image, Text } from "react-native";
+import { View, Image } from "react-native";
+import { useTheme, useThemeMode, Text } from "@rneui/themed";
 import styles from "../../styles";
 
 export default function Logo() {
+  const { mode } = useThemeMode();
+  const { theme } = useTheme();
+
+  const logo =
+    mode === "light"
+      ? require("../../images/logo36.png")
+      : require("../../images/logo36_inverted.png");
+
   return (
     <View style={[styles.logo.container]}>
       <Image
-        source={require("../../images/logo72.png")}
-        style={[styles.logo.image]}
+        source={logo}
+        width={36}
+        height={36}
+        style={[styles.logo.image, { marginRight: theme.spacing.md }]}
       />
-      <Text style={[styles.logo.text]}>Touch Sistemas - Postos</Text>
+      <Text h3 style={{ textAlign: "center" }}>
+        Touch Sistemas - Postos
+      </Text>
     </View>
   );
 }

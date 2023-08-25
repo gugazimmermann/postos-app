@@ -1,7 +1,7 @@
-import { View, Text } from "react-native";
-import { Dialog } from "@rneui/themed";
+import { View } from "react-native";
+import { useTheme, Dialog, Text } from "@rneui/themed";
 import utils from "../../../utils";
-import { AwaitingIcon, ConfirmedIcon, DoneIcon } from "../icons";
+import { AwaitingIcon, ConfirmedIcon, DoneIcon } from "../../icons";
 import styles from "../../../styles";
 
 export default function SchedulesDialog({
@@ -9,34 +9,51 @@ export default function SchedulesDialog({
   toggleScheduleAction,
   schedule,
 }) {
+  const { theme } = useTheme();
+
   return (
     <Dialog isVisible={scheduleAction} onBackdropPress={toggleScheduleAction}>
-      <Dialog.Title title="AGENDAMENTO" />
+      <Dialog.Title title="Agendamento" />
       {schedule?.done ? (
-        <Text style={[styles.schedules.dialogInfoDone]}>Realizado</Text>
+        <Text
+          h3
+          h3Style={{ color: theme.colors.secondary }}
+          style={{ textAlign: "center", marginBottom: theme.spacing.md }}
+        >
+          Realizado
+        </Text>
       ) : !schedule?.confirmed ? (
-        <Text style={[styles.schedules.dialogInfoAwaiting]}>
+        <Text
+          h3
+          h3Style={{ color: theme.colors.primary }}
+          style={{ textAlign: "center", marginBottom: theme.spacing.md }}
+        >
           Aguardando Confirmação
         </Text>
       ) : null}
-      <View style={[styles.schedules.dialog]}>
-        <Text style={[styles.schedules.dialogTitle]}>
+      <View>
+        <Text h4 style={{ textAlign: "center" }}>
           {schedule?.ScheduleService?.name}
         </Text>
-        <Text style={[styles.schedules.dialogTitle]}>
+        <Text h4 style={{ textAlign: "center" }}>
           {schedule?.GasStation?.name}
         </Text>
       </View>
-      <View style={[styles.schedules.dialogDateContainer]}>
+      <View
+        style={[
+          styles.schedules.dialogDateContainer,
+          { padding: theme.spacing.xl },
+        ]}
+      >
         {schedule?.done ? (
-          <DoneIcon size={32} />
+          <DoneIcon size={32} color={theme.colors.secondary} />
         ) : schedule?.confirmed ? (
-          <ConfirmedIcon size={32} />
+          <ConfirmedIcon size={32} color={theme.colors.success} />
         ) : (
-          <AwaitingIcon size={32} />
+          <AwaitingIcon size={32} color={theme.colors.grey4} />
         )}
         <View>
-          <Text style={[styles.schedules.dialogDate]}>
+          <Text style={styles.schedules.dialogDate}>
             {utils.date.toDate(schedule?.date)}
           </Text>
           <Text style={[styles.schedules.dialogDate]}>
@@ -50,11 +67,16 @@ export default function SchedulesDialog({
           </Text>
         </View>
       </View>
-      <Text style={[styles.schedules.listItemOptions]}>
+      <Text
+        style={[
+          styles.schedules.listItemOptions,
+          { marginTop: theme.spacing.sm },
+        ]}
+      >
         {(schedule?.ScheduleServiceOptions || []).map((o) => o.name).join(", ")}
       </Text>
       <Dialog.Actions>
-        <Dialog.Button title="FECHAR" onPress={toggleScheduleAction} />
+        <Dialog.Button title="Fechar" onPress={toggleScheduleAction} />
       </Dialog.Actions>
     </Dialog>
   );

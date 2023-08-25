@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { View } from "react-native";
-import { Text } from "@rneui/themed";
+import { useTheme, Text } from "@rneui/themed";
 import SchedulesItem from "./SchedulesItem";
 import SchedulesDialog from "./SchedulesDialog";
 
 export default function Schedules({ schedules }) {
+  const { theme } = useTheme();
+
   const [scheduleAction, setScheduleAction] = useState(false);
   const [selectedSchedule, setSelectedSchedule] = useState();
 
@@ -17,7 +19,7 @@ export default function Schedules({ schedules }) {
 
   return (
     <>
-      <Text h3 h3Style={{ marginVertical: 8 }}>
+      <Text h3 h3Style={{ marginVertical: theme.spacing.md }}>
         Agendamentos
       </Text>
       <View>

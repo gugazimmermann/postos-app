@@ -1,12 +1,11 @@
 import { Icon } from "@rneui/themed";
-import { emerald500 } from "../../../styles/colors";
 
-export default function ConfirmedIcon({ size }) {
+export default function ConfirmedIcon({ size, color }) {
   return (
     <Icon
       name="calendar-check"
       type="material-community"
-      color={emerald500}
+      color={color}
       size={size}
     />
   );

@@ -1,21 +1,30 @@
+import { ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
-import { Provider } from "../context";
-import { amber500 } from "../styles/colors";
+import { ThemeConsumer } from "@rneui/themed";
+import { AuthProvider } from "../context/auth";
+import { LocationProvider } from "../context/location";
 import { Layout, Logo } from "../components";
 
 export default function AppLayout() {
   return (
-    <Layout>
-      <Provider>
-        <Stack
-          screenOptions={{
-            headerTitle: (props) => <Logo />,
-            statusBarColor: amber500,
-          }}
-        >
-          <Stack.Screen name="index" />
-        </Stack>
-      </Provider>
-    </Layout>
+    <AuthProvider>
+      <LocationProvider>
+        <Layout>
+          <ThemeConsumer>
+            {({ theme }) => (
+              <ThemeProvider value={theme}>
+                <Stack
+                  screenOptions={{
+                    headerTitle: (props) => <Logo />,
+                    headerStyle: { backgroundColor: theme.colors.background },
+                    statusBarColor: theme.colors.primary,
+                  }}
+                />
+              </ThemeProvider>
+            )}
+          </ThemeConsumer>
+        </Layout>
+      </LocationProvider>
+    </AuthProvider>
   );
 }

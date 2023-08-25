@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, CheckBox } from "@rneui/themed";
+import { useTheme, Dialog, CheckBox } from "@rneui/themed";
 import utils from "../../../utils";
 import { white, slate800 } from "../../../styles/colors";
 
@@ -9,6 +9,8 @@ export default function VehiclesDialog({
   toggleVehiclesAction,
   user,
 }) {
+  const { theme } = useTheme();
+
   const [checked, setChecked] = useState(user?.vehicle);
 
   const handleChangeVehicle = async () => {
@@ -19,13 +21,13 @@ export default function VehiclesDialog({
 
   return (
     <Dialog isVisible={vehiclesAction} onBackdropPress={toggleVehiclesAction}>
-      <Dialog.Title title="TROCAR VEÍCULO" />
+      <Dialog.Title title="Trocar Veículo" />
       {(user?.vehiclesList || []).map((v) => (
         <CheckBox
-          containerStyle={{ backgroundColor: white, borderWidth: 0 }}
+          containerStyle={{ backgroundColor: theme.colors.background }}
           key={v.id}
           title={`${v.manufacturer} / ${v.model} - ${v.plate}`}
-          textStyle={{ color: slate800 }}
+          textStyle={{ color: theme.colors.text }}
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"
           checked={checked?.id === v.id}
@@ -33,8 +35,8 @@ export default function VehiclesDialog({
         />
       ))}
       <Dialog.Actions>
-        <Dialog.Button title="CONFIRMAR" onPress={handleChangeVehicle} />
-        <Dialog.Button title="CANCELAR" onPress={toggleVehiclesAction} />
+        <Dialog.Button title="Confirmar" onPress={handleChangeVehicle} />
+        <Dialog.Button title="Cancelar" onPress={toggleVehiclesAction} />
       </Dialog.Actions>
     </Dialog>
   );

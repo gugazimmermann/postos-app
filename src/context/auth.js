@@ -20,7 +20,7 @@ function useProtectedRoute(user) {
   }, [user, segments, navigationState]);
 }
 
-export function Provider(props) {
+export function AuthProvider(props) {
   const [user, setAuth] = useState(null);
 
   useProtectedRoute(user);

@@ -14,15 +14,13 @@ import {
   Inter_800ExtraBold,
   Inter_900Black,
 } from "@expo-google-fonts/inter";
-import { useColorScheme, View } from "react-native";
+import { View } from "react-native";
 import theme from "../../styles/theme";
 import styles from "../../styles";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout({ children }) {
-  const colorScheme = useColorScheme();
-
   let [fontsLoaded, fontError] = useFonts({
     Inter_100Thin,
     Inter_200ExtraLight,
@@ -43,19 +41,16 @@ export default function Layout({ children }) {
     return null;
   }
 
-  const themeContainerStyle =
-    colorScheme === "light" ? styles.layout.lightContainer : styles.layout.darkContainer;
-
   return (
     <ThemeProvider theme={theme}>
-    <SafeAreaProvider>
-      <View
-        style={[styles.layout.container, themeContainerStyle]}
-        onLayout={onLayoutRootView}
-      >
-        {children}
-      </View>
-    </SafeAreaProvider>
+      <SafeAreaProvider>
+        <View
+          style={ styles.layout.container}
+          onLayout={onLayoutRootView}
+        >
+          {children}
+        </View>
+      </SafeAreaProvider>
     </ThemeProvider>
   );
 }

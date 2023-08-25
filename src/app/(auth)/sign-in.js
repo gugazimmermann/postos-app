@@ -4,18 +4,19 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Text,
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { useAuth } from "../../context";
+import { useTheme, Text } from "@rneui/themed";
+import { useAuth } from "../../context/auth";
 import utils from "../../utils";
 import { Welcome } from "../../components";
-import { amber500, slate800 } from "../../styles/colors";
 import styles from "../../styles";
 
 export default function Home() {
   const { signIn } = useAuth();
+  const { theme } = useTheme();
+
   const [loading, setLoading] = useState(false);
   const [returning, setReturning] = useState(false);
   const [cpf, setCPF] = useState("");
@@ -24,6 +25,10 @@ export default function Home() {
   const [vehicle, setVehicle] = useState({});
   const [companiesList, setCompaniesList] = useState([]);
   const [vehiclesList, setVehiclesList] = useState([]);
+
+  const removeDataFromStorage = async () => {
+    await utils.storage.remove("driver");
+  };
 
   const saveDataToStorage = async (data) => {
     const currentdata = await utils.storage.load("driver");
@@ -37,6 +42,7 @@ export default function Home() {
     setVehicle({});
     setCompaniesList([]);
     setVehiclesList([]);
+    removeDataFromStorage();
   };
 
   const confirmVehicle = (value) => {
@@ -147,59 +153,124 @@ export default function Home() {
   return (
     <>
       <Welcome returning={returning} />
-      <View style={[styles.signIn.form]}>
-        {loading && <ActivityIndicator size="large" color={amber500} />}
+      <View
+        style={[styles.signIn.form, { paddingHorizontal: theme.spacing.xl }]}
+      >
+        {loading && (
+          <ActivityIndicator size="large" color={theme.colors.primary} />
+        )}
         {!company.id &&
         companiesList.length === 0 &&
         vehiclesList.length === 0 ? (
           <>
             <TextInput
-              style={[styles.signIn.documentInput]}
+              style={[
+                styles.signIn.documentInput,
+                {
+                  paddingHorizontal: theme.spacing.lg,
+                  marginBottom: theme.spacing.md,
+                  borderColor: theme.colors.primary,
+                  color: theme.colors.text,
+                  backgroundColor: theme.colors.grey0,
+                },
+              ]}
               placeholder="Digite seu CPF"
-              placeholderTextColor={slate800}
+              placeholderTextColor={theme.colors.text}
               value={utils.masks.cpf(cpf)}
               onChangeText={(value) => setCPF(utils.masks.cpf(value))}
               keyboardType="numeric"
             />
             <TouchableOpacity
-              style={[styles.signIn.button]}
+              style={[
+                styles.signIn.button,
+                { backgroundColor: theme.colors.primary },
+              ]}
               onPress={() => getDriver()}
             >
-              <Text style={[styles.signIn.buttonText]}>INSIRA SEU CPF</Text>
+              <Text
+                style={[
+                  styles.signIn.buttonText,
+                  { color: theme.colors.white },
+                ]}
+              >
+                INSIRA SEU CPF
+              </Text>
             </TouchableOpacity>
           </>
         ) : !company.id &&
           companiesList.length > 0 &&
           vehiclesList.length === 0 ? (
           <>
-            <Text style={[styles.signIn.text]}>Selecione o Empresa</Text>
-            <View style={[styles.signIn.picker]}>
+            <Text h3 style={{ paddingBottom: theme.spacing.md }}>
+              Selecione o Empresa
+            </Text>
+            <View
+              style={[
+                styles.signIn.picker,
+                {
+                  borderColor: theme.colors.primary,
+                  marginBottom: theme.spacing.md,
+                },
+              ]}
+            >
               <Picker
                 selectedValue={company.id || ""}
                 onValueChange={(itemValue) => confirmCompany(itemValue)}
+                selectionColor={theme.colors.primary}
+                dropdownIconColor={theme.colors.primary}
               >
-                <Picker.Item label="Selecione uma empresa" value="" />
+                <Picker.Item
+                  label="Selecione uma empresa"
+                  color={theme.colors.text}
+                  value=""
+                />
                 {companiesList.map((c) => (
                   <Picker.Item key={c.id} label={c.name} value={c.id} />
                 ))}
               </Picker>
             </View>
             <TouchableOpacity
-              style={[styles.signIn.button]}
+              style={[
+                styles.signIn.button,
+                { backgroundColor: theme.colors.primary },
+              ]}
               onPress={() => reset()}
             >
-              <Text style={[styles.signIn.buttonText]}>VOLTAR</Text>
+              <Text
+                style={[
+                  styles.signIn.buttonText,
+                  { color: theme.colors.white },
+                ]}
+              >
+                VOLTAR
+              </Text>
             </TouchableOpacity>
           </>
         ) : (
           <>
-            <Text style={[styles.signIn.text]}>Selecione o Veículo</Text>
-            <View style={[styles.signIn.picker]}>
+            <Text h3 style={{ paddingBottom: theme.spacing.md }}>
+              Selecione o Veículo
+            </Text>
+            <View
+              style={[
+                styles.signIn.picker,
+                {
+                  borderColor: theme.colors.primary,
+                  marginBottom: theme.spacing.md,
+                },
+              ]}
+            >
               <Picker
                 selectedValue={vehicle.id || ""}
                 onValueChange={(itemValue) => confirmVehicle(itemValue)}
+                selectionColor={theme.colors.primary}
+                dropdownIconColor={theme.colors.primary}
               >
-                <Picker.Item label="Selecione um veículo" value="" />
+                <Picker.Item
+                  label="Selecione um veículo"
+                  color={theme.colors.text}
+                  value=""
+                />
                 {vehiclesList.map((v) => (
                   <Picker.Item
                     key={v.id}
@@ -210,10 +281,20 @@ export default function Home() {
               </Picker>
             </View>
             <TouchableOpacity
-              style={[styles.signIn.button]}
+              style={[
+                styles.signIn.button,
+                { backgroundColor: theme.colors.primary },
+              ]}
               onPress={() => reset()}
             >
-              <Text style={[styles.signIn.buttonText]}>VOLTAR</Text>
+              <Text
+                style={[
+                  styles.signIn.buttonText,
+                  { color: theme.colors.white },
+                ]}
+              >
+                VOLTAR
+              </Text>
             </TouchableOpacity>
           </>
         )}

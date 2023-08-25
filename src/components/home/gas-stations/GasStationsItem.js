@@ -1,52 +1,48 @@
-import { useNavigation } from "expo-router";
-import { ListItem, Button } from "@rneui/themed";
-import styles from "../../../styles";
-import { CircleIcon, MapMarkerIcon } from "../icons";
+import { router } from "expo-router";
+import { useTheme, ListItem, Button } from "@rneui/themed";
+import { CircleIcon, MapMarkerIcon } from "../../icons";
 import { slate500 } from "../../../styles/colors";
+import styles from "../../../styles";
 
 export default function GasStationsItem({ gasStation }) {
-  const navigation = useNavigation();
+  const { theme } = useTheme();
 
   return (
     <ListItem.Swipeable
-      leftWidth={70}
-      minSlideWidth={60}
-      leftContent={() => (
+     containerStyle={{ paddingLeft: theme.spacing.md }}
+      leftContent={(reset) => (
         <Button
           containerStyle={styles.gasStation.listItemButton}
           type="clear"
-          icon={<MapMarkerIcon size={42} />}
-          onPress={() =>
-            navigation.push("index", {
-              screen: "Map",
-              params: { gasStation },
-            })
-          }
+          icon={<MapMarkerIcon size={42} color={theme.colors.primary} />}
+          onPress={() => {
+            reset();
+            router.push({
+              pathname: "/Map",
+              params: {
+                gasStation: JSON.stringify({
+                  name: gasStation.name,
+                  latitude: gasStation.latitude,
+                  longitude: gasStation.longitude,
+                }),
+              },
+            });
+          }}
         />
       )}
-      bottomDivider
-      style={[styles.gasStation.listItem]}
-      containerStyle={styles.gasStation.container}
-      pad={8}
     >
       <CircleIcon size={16} active={gasStation.active} />
-      <ListItem.Content style={[styles.gasStation.listItemContent]}>
-        <ListItem.Title style={[styles.gasStation.listItemName]}>
-          {gasStation.name}
-        </ListItem.Title>
-        <ListItem.Subtitle right style={[styles.gasStation.listItemAddress]}>
-          {gasStation.address}
-        </ListItem.Subtitle>
+      <ListItem.Content style={{ marginLeft: theme.spacing.md }}>
+        <ListItem.Title>{gasStation.name}</ListItem.Title>
+        <ListItem.Subtitle>{gasStation.address}</ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.Content right>
-        <ListItem.Title right style={[styles.gasStation.listItemCity]}>
+        <ListItem.Title>
           {gasStation.city} / {gasStation.state}
         </ListItem.Title>
-        <ListItem.Subtitle right style={[styles.gasStation.listItemAddress]}>
-          {gasStation.distance} km
-        </ListItem.Subtitle>
+        <ListItem.Subtitle>{gasStation.distance} km</ListItem.Subtitle>
       </ListItem.Content>
-      <ListItem.Chevron size={16} color={slate500} />
+      <ListItem.Chevron />
     </ListItem.Swipeable>
   );
 }

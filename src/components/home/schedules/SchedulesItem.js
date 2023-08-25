@@ -1,36 +1,34 @@
-import { ListItem } from "@rneui/themed";
+import { useTheme, ListItem } from "@rneui/themed";
 import utils from "../../../utils";
-import { AwaitingIcon, ConfirmedIcon, DoneIcon } from "../icons";
-import styles from "../../../styles";
+import { AwaitingIcon, ConfirmedIcon, DoneIcon } from "../../icons";
 
 export default function SchedulesItem({ schedule, showSchedule }) {
+  const { theme } = useTheme();
+  
   return (
     <ListItem
-      bottomDivider
-      style={[styles.schedules.listItem]}
-      containerStyle={styles.schedules.container}
       onPress={() => showSchedule(schedule)}
     >
       {schedule.done ? (
-        <DoneIcon size={32} />
+        <DoneIcon size={32} color={theme.colors.secondary} />
       ) : schedule.confirmed ? (
-        <ConfirmedIcon size={32} />
+        <ConfirmedIcon size={32} color={theme.colors.success} />
       ) : (
-        <AwaitingIcon size={32} />
+        <AwaitingIcon size={32} color={theme.colors.grey4} />
       )}
-      <ListItem.Content style={[styles.schedules.listItemContent]}>
-        <ListItem.Title style={[styles.schedules.listItemText]}>
+      <ListItem.Content>
+        <ListItem.Title>
           {schedule.ScheduleService.name}
         </ListItem.Title>
-        <ListItem.Subtitle style={[styles.schedules.listItemText]}>
+        <ListItem.Subtitle>
           {schedule.GasStation.name}
         </ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.Content right>
-        <ListItem.Title right style={[styles.schedules.listItemText]}>
+        <ListItem.Title>
           {utils.date.toDate(schedule.date)}
         </ListItem.Title>
-        <ListItem.Subtitle right style={[styles.schedules.listItemDate]}>
+        <ListItem.Subtitle>
           {utils.date.toTime(schedule.date)} -{" "}
           {utils.date.toTime(
             utils.date.addTime(schedule.date, schedule.ScheduleService.duration)

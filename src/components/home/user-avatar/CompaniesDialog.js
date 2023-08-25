@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
-import { Dialog, CheckBox } from "@rneui/themed";
+import { useTheme, Dialog, CheckBox } from "@rneui/themed";
 import { white, slate800 } from "../../../styles/colors";
 import utils from "../../../utils";
 
@@ -12,6 +12,8 @@ export default function CompaniesDialog({
   toggleVehiclesAction,
   user,
 }) {
+  const { theme } = useTheme();
+
   const [checked, setChecked] = useState(user?.company);
 
   const handleChangeCompany = async () => {
@@ -45,13 +47,13 @@ export default function CompaniesDialog({
 
   return (
     <Dialog isVisible={companiesAction} onBackdropPress={toggleCompaniesAction}>
-      <Dialog.Title title="TROCAR EMPRESA" />
+      <Dialog.Title title="Trocar Empresa" />
       {(user?.companiesList || []).map((c) => (
         <CheckBox
-          containerStyle={{ backgroundColor: white, borderWidth: 0 }}
+          containerStyle={{ backgroundColor: theme.colors.background }}
           key={c.id}
           title={c.name}
-          textStyle={{ color: slate800 }}
+          textStyle={{ color: theme.colors.text }}
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"
           checked={checked?.id === c.id}
@@ -59,8 +61,8 @@ export default function CompaniesDialog({
         />
       ))}
       <Dialog.Actions>
-        <Dialog.Button title="CONFIRMAR" onPress={handleChangeCompany} />
-        <Dialog.Button title="CANCELAR" onPress={toggleCompaniesAction} />
+        <Dialog.Button title="Confirmar" onPress={handleChangeCompany} />
+        <Dialog.Button title="Cancelar" onPress={toggleCompaniesAction} />
       </Dialog.Actions>
     </Dialog>
   );

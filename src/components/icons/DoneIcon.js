@@ -1,12 +1,11 @@
 import { Icon } from "@rneui/themed";
-import { sky500 } from "../../../styles/colors";
 
-export default function DoneIcon({ size }) {
+export default function DoneIcon({ size, color }) {
   return (
     <Icon
       name="check-bold"
       type="material-community"
-      color={sky500}
+      color={color}
       size={size}
     />
   );

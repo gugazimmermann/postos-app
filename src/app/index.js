@@ -1,13 +1,42 @@
 import React, { useEffect, useState } from "react";
+import * as TaskManager from "expo-task-manager";
+import * as Location from "expo-location";
 import { Stack } from "expo-router";
-import { Avatar } from "@rneui/themed";
 import { Alert } from "react-native";
-import { useAuth } from "../context";
-import { amber500 } from "../styles/colors";
+import { useTheme, Avatar } from "@rneui/themed";
+import { useAuth } from "../context/auth";
+import { useLocation } from "../context/location";
+import * as locationEvents from '../context/locationEvents';
 import { Home, AvatarDialog } from "../components/home";
+
+const requestPermissions = async () => {
+  const { status: foregroundStatus } =
+    await Location.requestForegroundPermissionsAsync();
+  if (foregroundStatus === "granted") {
+    const { status: backgroundStatus } =
+      await Location.requestBackgroundPermissionsAsync();
+    if (backgroundStatus === "granted") {
+      await Location.startLocationUpdatesAsync("background-location-task", {
+        accuracy: Location.Accuracy.High,
+      });
+    }
+  }
+};
+
+TaskManager.defineTask("background-location-task", ({ data, error }) => {
+  if (error) return;
+  if (data) {
+    const { latitude, longitude } = data.locations[0].coords;
+    console.log("locationUpdate", { latitude, longitude });
+    locationEvents.trigger("locationUpdate", { latitude, longitude });
+  }
+});
 
 export default function Index() {
   const { user, signIn, signOut } = useAuth();
+  const { setLocation } = useLocation();
+  const { theme } = useTheme();
+
   const [loading, setLoading] = useState(false);
   const [driverAction, setDriverAction] = useState(false);
   const [gasStations, setGasStations] = useState([]);
@@ -53,6 +82,13 @@ export default function Index() {
       getGasStations();
   }, []);
 
+  useEffect(() => {
+    requestPermissions();
+    const updateLocation = (location) => setLocation(location);
+    locationEvents.on("locationUpdate", updateLocation);
+    return () => locationEvents.off("locationUpdate", updateLocation);
+  }, []);
+
   return (
     <>
       <Stack.Screen
@@ -63,7 +99,7 @@ export default function Index() {
               rounded
               title={user?.driver?.name?.[0] || ""}
               titleStyle={{ fontSize: 21, fontWeight: "bold" }}
-              containerStyle={{ backgroundColor: amber500 }}
+              containerStyle={{ backgroundColor: theme.colors.primary }}
               onPress={toggleDriverAction}
             />
           ),
