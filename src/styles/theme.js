@@ -101,6 +101,7 @@ const theme = createTheme({
       titleStyle: {
         color: theme.colors.text,
         textTransform: "uppercase",
+        textAlign: "center",
       },
     }),
     DialogButton: (props, theme) => ({
@@ -184,20 +185,11 @@ const theme = createTheme({
     ListItemChevron: (props, theme) => ({
       iconProps: {
         size: 36,
-        color: theme.colors.greyOutline
+        color: theme.colors.greyOutline,
       },
     }),
-    FAB: {
-      size: "large",
-      placement: "left",
-      color: white,
-      style: {
-        backgroundColor: amber500,
-        color: white,
-      },
-    },
   },
-  mode: "light",
+  mode: "dark",
 });
 
 export default theme;

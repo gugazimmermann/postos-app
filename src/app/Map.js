@@ -3,14 +3,21 @@ import { useLocalSearchParams } from "expo-router";
 import MapView, { Polyline, Marker } from "react-native-maps";
 import polyline from "@mapbox/polyline";
 import { View, Text } from "react-native";
-import { Avatar, SpeedDial } from "@rneui/themed";
-import { red600, white } from "../styles/colors";
+import { useTheme, Avatar, FAB } from "@rneui/themed";
+import { GasStationsDialog } from "../components/home/gas-stations";
+import { CarIcon } from "../components/icons";
 
 export default function GasStationsMap() {
   const { gasStation } = useLocalSearchParams();
+  const { theme } = useTheme();
+
   const [coordinates, setCoordinates] = useState([]);
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
+  const [gasStationAction, setGasStationAction] = useState(false);
+  const [selectedGasStation, setSelectedGasStation] = useState();
+
+  const toggleGasStationAction = () => setGasStationAction(!gasStationAction);
 
   const fetchRoute = async (latitude, longitude) => {
     try {
@@ -40,8 +47,9 @@ export default function GasStationsMap() {
 
   useEffect(() => {
     if (gasStation) {
-      const { latitude, longitude } = JSON.parse(gasStation);
-      if (latitude && longitude) fetchRoute(latitude, longitude);
+      const gs = JSON.parse(gasStation);
+      setSelectedGasStation(gs);
+      if (gs.latitude && gs.longitude) fetchRoute(gs.latitude, gs.longitude);
     }
   }, [gasStation]);
 
@@ -63,7 +71,7 @@ export default function GasStationsMap() {
         <Polyline
           coordinates={coordinates}
           strokeWidth={4}
-          strokeColor={red600}
+          strokeColor={theme.colors.error}
         />
         {coordinates.length > 0 && (
           <Marker coordinate={coordinates[coordinates.length - 1]}>
@@ -74,31 +82,29 @@ export default function GasStationsMap() {
                 name: "gas-station",
                 type: "material-community",
                 size: 32,
-                color: red600,
+                color: theme.colors.error,
               }}
-              containerStyle={{ backgroundColor: white }}
+              containerStyle={{ backgroundColor: theme.colors.white }}
             />
           </Marker>
         )}
       </MapView>
-      <SpeedDial
-        isOpen={open}
-        icon={{ name: "car", type: "material-community", color: "#fff" }}
-        openIcon={{ name: "close", color: "#fff" }}
-        onOpen={() => setOpen(!open)}
-        onClose={() => setOpen(!open)}
-      >
-        <SpeedDial.Action
-          icon={{ name: "add", color: "#fff" }}
-          title="Add"
-          onPress={() => console.log("Add Something")}
-        />
-        <SpeedDial.Action
-          icon={{ name: "delete", color: "#fff" }}
-          title="Delete"
-          onPress={() => console.log("Delete Something")}
-        />
-      </SpeedDial>
+      <FAB
+        placement="right"
+        visible={true}
+        icon={{
+          name: "car",
+          type: "material-community",
+          color: theme.colors.white,
+        }}
+        color={theme.colors.primary}
+        onPress={() => toggleGasStationAction()}
+      />
+      <GasStationsDialog
+        gasStationAction={gasStationAction}
+        toggleGasStationAction={toggleGasStationAction}
+        gasStation={selectedGasStation}
+      />
     </View>
   );
 }

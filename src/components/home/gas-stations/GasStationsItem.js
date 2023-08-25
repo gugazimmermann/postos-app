@@ -3,7 +3,7 @@ import { useTheme, ListItem, Button } from "@rneui/themed";
 import { CircleIcon, MapMarkerIcon } from "../../icons";
 import styles from "../../../styles";
 
-export default function GasStationsItem({ gasStation }) {
+export default function GasStationsItem({ gasStation, showGasStation }) {
   const { theme } = useTheme();
 
   return (
@@ -19,16 +19,13 @@ export default function GasStationsItem({ gasStation }) {
             router.push({
               pathname: "/Map",
               params: {
-                gasStation: JSON.stringify({
-                  name: gasStation.name,
-                  latitude: gasStation.latitude,
-                  longitude: gasStation.longitude,
-                }),
+                gasStation: JSON.stringify(gasStation),
               },
             });
           }}
         />
       )}
+      onPress={() => showGasStation(gasStation)}
     >
       <CircleIcon size={16} active={gasStation.active} />
       <ListItem.Content style={{ marginLeft: theme.spacing.md }}>

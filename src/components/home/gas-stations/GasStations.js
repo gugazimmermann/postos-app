@@ -4,17 +4,27 @@ import { useTheme, Text } from "@rneui/themed";
 import { useLocation } from "../../../context/location";
 import utils from "../../../utils";
 import GasStationsItem from "./GasStationsItem";
+import GasStationsDialog from "./GasStationsDialog";
 
 export default function GasStations({ gasStations }) {
   const { location } = useLocation();
   const { theme } = useTheme();
 
   const [gasStationsData, setGasStationsData] = useState([]);
+  const [gasStationAction, setGasStationAction] = useState(false);
+  const [selectedGasStation, setSelectedGasStation] = useState();
+
+  const toggleGasStationAction = () => setGasStationAction(!gasStationAction);
+
+  const showGasStation = (gasStation) => {
+    setSelectedGasStation(gasStation);
+    toggleGasStationAction();
+  };
 
   const handleGasStationsData = (data) => {
+    console.log(location)
     let orderData = null;
     if (location?.latitude && location?.longitude) {
-      console.log('handleGasStationsData', location)
       orderData = data.map((g) => ({
         ...g,
         distance: parseFloat(
@@ -133,11 +143,17 @@ export default function GasStations({ gasStations }) {
             <GasStationsItem
               key={gasStation.id || index}
               gasStation={gasStation}
+              showGasStation={showGasStation}
             />
           ))
         ) : (
           <Text h4 style={{ textAlign: 'center'}}>Nenhum Posto Cadastrado</Text>
         )}
+        <GasStationsDialog
+          gasStationAction={gasStationAction}
+          toggleGasStationAction={toggleGasStationAction}
+          gasStation={selectedGasStation}
+        />
       </View>
     </>
   );

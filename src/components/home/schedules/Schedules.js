@@ -10,12 +10,12 @@ export default function Schedules({ schedules }) {
   const [scheduleAction, setScheduleAction] = useState(false);
   const [selectedSchedule, setSelectedSchedule] = useState();
 
-  const showSchedule = (Schedule) => {
-    setSelectedSchedule(Schedule);
+  const toggleScheduleAction = () => setScheduleAction(!scheduleAction);
+
+  const showSchedule = (schedule) => {
+    setSelectedSchedule(schedule);
     toggleScheduleAction();
   };
-
-  const toggleScheduleAction = () => setScheduleAction(!scheduleAction);
 
   return (
     <>

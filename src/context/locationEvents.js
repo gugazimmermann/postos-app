@@ -15,7 +15,6 @@ export const off = (ev, cb) => {
 };
 
 export const trigger = (ev, data) => {
-  console.log("trigger", data);
   if (listeners[ev]) {
     listeners[ev].forEach((cb) => {
       cb(data);

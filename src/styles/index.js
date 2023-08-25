@@ -66,6 +66,11 @@ const gasStation = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
+  dialogContactContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
 });
 
 const schedules = StyleSheet.create({

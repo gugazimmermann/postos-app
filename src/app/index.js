@@ -27,7 +27,6 @@ TaskManager.defineTask("background-location-task", ({ data, error }) => {
   if (error) return;
   if (data) {
     const { latitude, longitude } = data.locations[0].coords;
-    console.log("locationUpdate", { latitude, longitude });
     locationEvents.trigger("locationUpdate", { latitude, longitude });
   }
 });
