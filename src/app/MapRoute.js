@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLocalSearchParams } from "expo-router";
 import MapView, { Polyline, Marker } from "react-native-maps";
 import polyline from "@mapbox/polyline";
+import * as Linking from "expo-linking";
 import { View, Text } from "react-native";
-import { useTheme, Avatar, FAB } from "@rneui/themed";
+import { useTheme, Avatar, SpeedDial } from "@rneui/themed";
 import { useLocation } from "../context/location";
 import { GasStationsDialog } from "../components/home/gas-stations";
 
@@ -12,7 +13,7 @@ export default function MapRoute() {
   const { gasStation } = useLocalSearchParams();
   const { theme } = useTheme();
   const { location } = useLocation();
-
+  const [open, setOpen] = React.useState(false);
   const [coordinates, setCoordinates] = useState([]);
   const [error, setError] = useState(null);
 
@@ -20,6 +21,16 @@ export default function MapRoute() {
   const [selectedGasStation, setSelectedGasStation] = useState();
 
   const toggleGasStationAction = () => setGasStationAction(!gasStationAction);
+
+  const openGoogleMaps = () => {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${selectedGasStation?.latitude},${selectedGasStation?.longitude}`;
+    Linking.openURL(url);
+  };
+
+  const openWaze = () => {
+    const url = `https://waze.com/ul?ll=${selectedGasStation?.latitude},${selectedGasStation?.longitude}&navigate=yes`;
+    Linking.openURL(url);
+  };
 
   const fetchRoute = async (latitude, longitude) => {
     try {
@@ -129,18 +140,56 @@ export default function MapRoute() {
           </Marker>
         )}
       </MapView>
-      <FAB
+      <SpeedDial
+        title={selectedGasStation?.name || ""}
         placement="right"
         visible={true}
         icon={{
-          name: "information",
+          name: "plus-circle",
           type: "material-community",
           color: theme.colors.white,
         }}
         color={theme.colors.primary}
-        title={selectedGasStation?.name || ""}
-        onPress={() => toggleGasStationAction()}
-      />
+        openIcon={{
+          name: "close-circle",
+          type: "material-community",
+          color: theme.colors.white,
+        }}
+        isOpen={open}
+        onOpen={() => setOpen(!open)}
+        onClose={() => setOpen(!open)}
+      >
+        <SpeedDial.Action
+          color={theme.colors.primary}
+          icon={{
+            name: "gas-station",
+            type: "material-community",
+            color: theme.colors.white,
+          }}
+          title={selectedGasStation?.name}
+          onPress={() => toggleGasStationAction()}
+        />
+        <SpeedDial.Action
+          color={theme.colors.primary}
+          icon={{
+            name: "directions",
+            type: "material-community",
+            color: theme.colors.white,
+          }}
+          title="Google Maps"
+          onPress={openGoogleMaps}
+        />
+        <SpeedDial.Action
+          color={theme.colors.primary}
+          icon={{
+            name: "waze",
+            type: "material-community",
+            color: theme.colors.white,
+          }}
+          title="Waze"
+          onPress={openWaze}
+        />
+      </SpeedDial>
       <GasStationsDialog
         gasStationAction={gasStationAction}
         toggleGasStationAction={toggleGasStationAction}
