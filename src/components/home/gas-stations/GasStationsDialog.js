@@ -74,6 +74,16 @@ export default function GasStationsDialog({
     });
   };
 
+  const opeTransactionsList = (transactions, name) => {
+    router.push({
+      pathname: "/DriverGasStationTransactions",
+      params: {
+        transactions: JSON.stringify(transactions),
+        name: name,
+      },
+    });
+  };
+
   return (
     <Dialog
       isVisible={gasStationAction}
@@ -123,7 +133,7 @@ export default function GasStationsDialog({
             {gasStation.vehicle.fuelTypes.map((fuel) => fuel.name).join(", ")}
           </Text>
         ) : (
-          <Text>Sem Restrição</Text>
+          <Text style={{ textAlign: "center" }}>Sem Restrição</Text>
         )}
       </View>
       <Divider
@@ -175,7 +185,33 @@ export default function GasStationsDialog({
           <Text>Nenhuma Assinatura Cadastrada</Text>
         )}
       </View>
-
+      <Divider
+        color={theme.colors.divider}
+        style={{ marginVertical: theme.spacing.lg }}
+      />
+      <View
+        style={[
+          styles.gasStation.dialogContactContainer,
+          { padding: theme.spacing.md },
+        ]}
+      >
+        {gasStation?.vehicle?.transactions?.length > 0 ? (
+          <View style={styles.gasStation.dialogContactContainer}>
+            <Pressable
+              onPress={() =>
+                opeTransactionsList(gasStation.vehicle.transactions, gasStation.name)
+              }
+            >
+              <Text style={{ marginRight: theme.spacing.sm }}>
+                {gasStation?.vehicle?.transactions?.length} Abastecimentos Realizados
+              </Text>
+            </Pressable>
+            <OpenIcon size={26} color={theme.colors.text} />
+          </View>
+        ) : (
+          <Text>Nenhum Abastecimento Realizado</Text>
+        )}
+      </View>
       <Dialog.Actions>
         <Dialog.Button title="Fechar" onPress={toggleGasStationAction} />
       </Dialog.Actions>

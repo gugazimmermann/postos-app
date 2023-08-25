@@ -33,7 +33,9 @@ export default function Schedules({ schedules }) {
               />
             ))
           ) : (
-            <Text h4>Sem Agendamentos</Text>
+            <Text h4 style={{ textAlign: "center" }}>
+              Sem Agendamentos
+            </Text>
           )}
         </ScrollView>
         <SchedulesDialog
