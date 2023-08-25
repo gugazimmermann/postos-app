@@ -17,7 +17,7 @@ https://www.touchsistemas.com.br
 
 `emulator -avd Pixel_7_Android_13`
 
-`emulator -avd Pixel_2_Android_8`
+`emulator -avd Pixel_2_Android_9`
 
 `emulator -avd Pixel_7_Android_13 -wipe-data`
 
