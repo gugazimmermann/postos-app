@@ -1,9 +1,9 @@
 import { Icon } from "@rneui/themed";
 
-export default function GasStationsIcon({ size, color, onPress }) {
+export default function CarIcon({ size, color, onPress }) {
   return (
     <Icon
-      name="gas-station"
+      name="car"
       type="material-community"
       color={color}
       size={size}

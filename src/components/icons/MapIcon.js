@@ -1,9 +1,10 @@
 import { Icon } from "@rneui/themed";
+import { amber500 } from "../../styles/colors";
 
-export default function GasStationsIcon({ size, color, onPress }) {
+export default function MapIcon({ size, color, onPress }) {
   return (
     <Icon
-      name="gas-station"
+      name="map"
       type="material-community"
       color={color}
       size={size}

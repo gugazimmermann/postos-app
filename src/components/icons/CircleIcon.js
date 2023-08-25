@@ -1,13 +1,14 @@
-import { Icon } from "@rneui/themed";
-import { emerald500, slate300 } from "../../styles/colors";
+import { useTheme, Icon } from "@rneui/themed";
 
-export default function CircleIcon({ size, color, active }) {
+export default function CircleIcon({ size, color, active, onPress }) {
+  const { theme } = useTheme();
   return (
     <Icon
       name="circle"
       type="material-community"
-      color={color ? color : active ? emerald500 : slate300}
+      color={color ? color : active ? theme.colors.success : theme.colors.grey3}
       size={size}
+      onPress={onPress}
     />
   );
 }

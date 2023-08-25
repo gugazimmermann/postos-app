@@ -1,7 +1,15 @@
 export { default as AwaitingIcon } from './AwaitingIcon';
+export { default as BiometricIcon } from './BiometricIcon';
+export { default as CarIcon } from './CarIcon';
 export { default as CircleIcon } from './CircleIcon';
 export { default as ConfirmedIcon } from './ConfirmedIcon';
+export { default as DigitalSignatureIcon } from './DigitalSignatureIcon';
 export { default as DoneIcon } from './DoneIcon';
+export { default as EmailIcon } from './EmailIcon';
+export { default as FacialRecognitionIcon } from './FacialRecognitionIcon';
 export { default as GasStationsIcon } from './GasStationsIcon';
+export { default as MapIcon } from './MapIcon';
 export { default as MapMarkerIcon } from './MapMarkerIcon';
+export { default as OpenIcon } from './OpenIcon';
+export { default as PhoneIcon } from './PhoneIcon';
 export { default as SchedulesIcon } from './SchedulesIcon';

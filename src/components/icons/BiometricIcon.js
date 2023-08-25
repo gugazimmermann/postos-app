@@ -1,9 +1,9 @@
 import { Icon } from "@rneui/themed";
 
-export default function GasStationsIcon({ size, color, onPress }) {
+export default function BiometricIcon({ size, color, onPress }) {
   return (
     <Icon
-      name="gas-station"
+      name="fingerprint"
       type="material-community"
       color={color}
       size={size}
