@@ -5,6 +5,7 @@ export { default as CircleIcon } from './CircleIcon';
 export { default as ConfirmedIcon } from './ConfirmedIcon';
 export { default as DigitalSignatureIcon } from './DigitalSignatureIcon';
 export { default as DoneIcon } from './DoneIcon';
+export { default as DriverIcon } from './DriverIcon';
 export { default as EmailIcon } from './EmailIcon';
 export { default as FacialRecognitionIcon } from './FacialRecognitionIcon';
 export { default as GasStationsIcon } from './GasStationsIcon';

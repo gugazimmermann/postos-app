@@ -6,8 +6,9 @@ import { Alert } from "react-native";
 import { useTheme, Avatar } from "@rneui/themed";
 import { useAuth } from "../context/auth";
 import { useLocation } from "../context/location";
-import * as locationEvents from '../context/locationEvents';
+import * as locationEvents from "../context/locationEvents";
 import { Home, AvatarDialog } from "../components/home";
+import { DriverIcon } from "../components/icons";
 
 const requestPermissions = async () => {
   const { status: foregroundStatus } =
@@ -47,7 +48,7 @@ export default function Index() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://192.168.249.7:5000/app/gas-stations/${user?.company?.id}/${user?.vehicle?.id}/${user?.driver?.id}`
+        `http://192.168.1.2:5000/app/gas-stations/${user?.company?.id}/${user?.vehicle?.id}/${user?.driver?.id}`
       );
       if (!res.ok) throw new Error("2 Houve um erro ao carregar postos");
       const data = await res.json();
@@ -63,7 +64,7 @@ export default function Index() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://192.168.249.7:5000/app/schedules/${user?.company?.id}/${user?.vehicle?.id}`
+        `http://192.168.1.2:5000/app/schedules/${user?.company?.id}/${user?.vehicle?.id}`
       );
       if (!res.ok) throw new Error("2 Houve um erro ao carregar agendamentos");
       const data = await res.json();
@@ -93,12 +94,9 @@ export default function Index() {
       <Stack.Screen
         options={{
           headerRight: () => (
-            <Avatar
-              size={36}
-              rounded
-              title={user?.driver?.name?.[0] || ""}
-              titleStyle={{ fontSize: 21, fontWeight: "bold" }}
-              containerStyle={{ backgroundColor: theme.colors.primary }}
+            <DriverIcon
+              size={42}
+              color={theme.colors.primary}
               onPress={toggleDriverAction}
             />
           ),
