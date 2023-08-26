@@ -3,7 +3,7 @@ import * as TaskManager from "expo-task-manager";
 import * as Location from "expo-location";
 import { Stack } from "expo-router";
 import { Alert } from "react-native";
-import { useTheme, Avatar } from "@rneui/themed";
+import { useTheme } from "@rneui/themed";
 import { useAuth } from "../context/auth";
 import { useLocation } from "../context/location";
 import * as locationEvents from "../context/locationEvents";
@@ -80,7 +80,7 @@ export default function Index() {
     if (user?.company?.id && user?.vehicle?.id) getSchedules();
     if (user?.company?.id && user?.vehicle?.id && user?.vehicle?.id)
       getGasStations();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     requestPermissions();

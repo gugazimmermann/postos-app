@@ -104,17 +104,17 @@ export default function GasStationsDialog({
         ]}
       >
         <PhoneIcon
-          size={42}
+          size={36}
           color={theme.colors.text}
           onPress={() => callNumber(gasStation?.phone)}
         />
         <MapIcon
-          size={42}
+          size={36}
           color={theme.colors.primary}
           onPress={() => openMap()}
         />
         <EmailIcon
-          size={42}
+          size={36}
           color={theme.colors.text}
           onPress={() => sendEmail(gasStation?.email)}
         />
@@ -132,7 +132,7 @@ export default function GasStationsDialog({
       <View
         style={[
           styles.gasStation.dialogContactContainer,
-          { padding: theme.spacing.md },
+          { padding: theme.spacing.sm },
         ]}
       >
         {gasStation?.vehicle?.fuelTypes?.length > 0 ? (
@@ -153,7 +153,7 @@ export default function GasStationsDialog({
       <View
         style={[
           styles.gasStation.dialogContactContainer,
-          { padding: theme.spacing.md },
+          { padding: theme.spacing.sm },
         ]}
       >
         {gasStation?.driver?.products?.length > 0 ? (
@@ -183,7 +183,7 @@ export default function GasStationsDialog({
       <View
         style={[
           styles.gasStation.dialogContactContainer,
-          { padding: theme.spacing.md },
+          { padding: theme.spacing.sm },
         ]}
       >
         {gasStation?.signatures?.length > 0 &&
@@ -199,7 +199,7 @@ export default function GasStationsDialog({
       <View
         style={[
           styles.gasStation.dialogContactContainer,
-          { padding: theme.spacing.md },
+          { padding: theme.spacing.sm },
         ]}
       >
         {gasStation?.vehicle?.transactions?.length > 0 ? (
