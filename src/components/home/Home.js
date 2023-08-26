@@ -24,7 +24,11 @@ export default function Home({ loading, gasStations, schedules }) {
         />
       </Tab>
       {loading ? (
-        <ActivityIndicator size="large" color={theme.colors.primary} />
+        <ActivityIndicator
+          size={72}
+          color={theme.colors.primary}
+          style={{ paddingTop: theme.spacing.xl }}
+        />
       ) : (
         <TabView value={tabIndex} onChange={setTabIndex} animationType="spring">
           <TabView.Item style={styles.home.tabview}>

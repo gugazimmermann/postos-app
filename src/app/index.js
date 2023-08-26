@@ -45,7 +45,6 @@ export default function Index() {
   const toggleDriverAction = () => setDriverAction(!driverAction);
 
   const getGasStations = async () => {
-    setLoading(true);
     try {
       const res = await fetch(
         `http://10.255.241.197:5000/app/gas-stations/${user?.company?.id}/${user?.vehicle?.id}/${user?.driver?.id}`
@@ -55,13 +54,10 @@ export default function Index() {
       if (Array.isArray(data) && data.length) setGasStations(data);
     } catch (error) {
       Alert.alert("Erro", error.message);
-    } finally {
-      setLoading(false);
     }
   };
 
   const getSchedules = async () => {
-    setLoading(true);
     try {
       const res = await fetch(
         `http://10.255.241.197:5000/app/schedules/${user?.company?.id}/${user?.vehicle?.id}`
@@ -71,15 +67,18 @@ export default function Index() {
       if (Array.isArray(data) && data.length) setSchedules(data);
     } catch (error) {
       Alert.alert("Erro", error.message);
-    } finally {
-      setLoading(false);
     }
   };
 
+  const getData = async () => {
+    setLoading(true);
+    await getSchedules();
+    await getGasStations();
+    setLoading(false);
+  };
+
   useEffect(() => {
-    if (user?.company?.id && user?.vehicle?.id) getSchedules();
-    if (user?.company?.id && user?.vehicle?.id && user?.vehicle?.id)
-      getGasStations();
+    if (user?.company?.id && user?.vehicle?.id) getData();
   }, [user]);
 
   useEffect(() => {
