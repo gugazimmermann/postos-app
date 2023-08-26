@@ -28,8 +28,9 @@ export default function CompaniesDialog({
           ...user,
           company: checked,
           vehiclesList: data,
+          vehicle: null
         });
-        signIn({ ...user, company: checked, vehiclesList: data });
+        signIn({ ...user, company: checked, vehiclesList: data, vehicle: null });
         toggleCompaniesAction();
         toggleVehiclesAction();
       } else if (Array.isArray(data) && !data.length) {

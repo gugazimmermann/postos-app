@@ -140,6 +140,7 @@ export default function Home() {
         });
         setDriver(data.driver);
         setCompany(data.company);
+        setCompaniesList(data.companiesList);
         if (!data.vehicle) getVehicles(data.company.id, data.driver.id);
         else signIn(data);
       }
@@ -274,7 +275,7 @@ export default function Home() {
                 {vehiclesList.map((v) => (
                   <Picker.Item
                     key={v.id}
-                    label={`${v.plate} | ${v.manufacturer} / ${v.model}`}
+                    label={`${v.plate} - ${v.manufacturer} / ${v.model}`}
                     value={v.id}
                   />
                 ))}

@@ -78,7 +78,12 @@ export default function Index() {
   };
 
   useEffect(() => {
-    if (user?.company?.id && user?.vehicle?.id) getData();
+    if (user?.company?.id && user?.vehicle?.id) {
+      getData();
+    } else {
+      setGasStations([]);
+      setSchedules([]);
+    }
   }, [user]);
 
   useEffect(() => {
