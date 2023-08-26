@@ -54,8 +54,10 @@ export default function DriverGasStationTransactions() {
               key={index}
               bottomDivider
               onPress={() => {
-                setSelectedTransaction(transaction);
-                setVisible(true);
+                if (transaction?.products.length) {
+                  setSelectedTransaction(transaction);
+                  setVisible(true);
+                }
               }}
             >
               <ListItem.Content>
