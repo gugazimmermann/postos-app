@@ -19,7 +19,7 @@ export default function CompaniesDialog({
     setLoading(true);
     try {
       const res = await fetch(
-        `http://192.168.1.2:5000/app/vehicles/${checked.id}/${user?.driver?.id}`
+        `http://10.255.241.197:5000/app/vehicles/${checked.id}/${user?.driver?.id}`
       );
       if (!res.ok) throw new Error("Houve um erro ao carregar veículos");
       const data = await res.json();

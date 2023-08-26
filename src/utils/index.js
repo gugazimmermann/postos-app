@@ -41,7 +41,13 @@ const callPhone = (value) => {
   return value.replace(/\D+/g, "");
 };
 
-const masks = { cpf, callPhone };
+const valueToReal = (v) => {
+  const [i, d] = Number(v).toFixed(2).split(".");
+  const r = i.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return `${r},${d}`;
+};
+
+const masks = { cpf, callPhone, valueToReal };
 
 function toDate(d) {
   if (!d) return;
@@ -71,7 +77,18 @@ function addTime(d, t) {
   return date;
 }
 
-const date = { toDate, toTime, addTime };
+function formatDateAndTime(date) {
+  const dateObj = new Date(date);
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const year = dateObj.getFullYear();
+  const hours = String(dateObj.getHours()).padStart(2, "0");
+  const minutes = String(dateObj.getMinutes()).padStart(2, "0");
+
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
+const date = { toDate, toTime, addTime, formatDateAndTime };
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
   lat1 = parseFloat(lat1);

@@ -48,7 +48,7 @@ export default function Index() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://192.168.1.2:5000/app/gas-stations/${user?.company?.id}/${user?.vehicle?.id}/${user?.driver?.id}`
+        `http://10.255.241.197:5000/app/gas-stations/${user?.company?.id}/${user?.vehicle?.id}/${user?.driver?.id}`
       );
       if (!res.ok) throw new Error("2 Houve um erro ao carregar postos");
       const data = await res.json();
@@ -64,7 +64,7 @@ export default function Index() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://192.168.1.2:5000/app/schedules/${user?.company?.id}/${user?.vehicle?.id}`
+        `http://10.255.241.197:5000/app/schedules/${user?.company?.id}/${user?.vehicle?.id}`
       );
       if (!res.ok) throw new Error("2 Houve um erro ao carregar agendamentos");
       const data = await res.json();

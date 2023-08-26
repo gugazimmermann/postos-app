@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { View, ScrollView } from "react-native";
-import { useTheme, ListItem, Text, Overlay, Icon, Button } from "@rneui/themed";
+import { useTheme, ListItem, Text, Overlay, Button } from "@rneui/themed";
+import utils from "../utils";
+import {CartIcon} from "../components/icons";
 
 export default function DriverGasStationTransactions() {
   const { transactions, name } = useLocalSearchParams();
@@ -11,6 +13,26 @@ export default function DriverGasStationTransactions() {
 
   const [visible, setVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+
+  const Badge = ({ value, color, textColor }) => {
+    return (
+      <View
+        style={{
+          position: "absolute",
+          top: -10,
+          right: -4,
+          backgroundColor: color,
+          borderRadius: 12,
+          width: 24,
+          height: 24,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text style={{ color: textColor, fontWeight: "bold" }}>{value}</Text>
+      </View>
+    );
+  };
 
   useEffect(() => {
     if (transactions && name) {
@@ -55,14 +77,23 @@ export default function DriverGasStationTransactions() {
               }}
             >
               <ListItem.Content>
-              <ListItem.Subtitle>
-                  {new Date(transaction.createdAt).toLocaleDateString()}
+                <ListItem.Subtitle>
+                  {utils.date.formatDateAndTime(transaction.createdAt)}
                 </ListItem.Subtitle>
                 <ListItem.Title>
-                  {transaction.fuelType} - R$ {totalGeneralValue.toFixed(2)}
+                  {transaction.fuelType} - R$ {utils.masks.valueToReal(totalGeneralValue)}
                 </ListItem.Title>
               </ListItem.Content>
-              <Icon name="list" type="font-awesome" />
+              <View>
+                <CartIcon size={34} color={theme.colors.text} />
+                {transaction.products.length > 0 && (
+                  <Badge
+                    value={transaction.products.length}
+                    color={theme.colors.primary}
+                    textColor={theme.colors.white}
+                  />
+                )}
+              </View>
             </ListItem>
           );
         })}
@@ -72,11 +103,12 @@ export default function DriverGasStationTransactions() {
         isVisible={visible}
         onBackdropPress={() => setVisible(false)}
         overlayStyle={{
-          position: 'absolute',
-          top: 0, 
-          width: '90%',
-          marginTop: theme.spacing.xl
-      }}
+          position: "absolute",
+          top: 0,
+          width: "94%",
+          marginTop: theme.spacing.xl,
+          borderRadius: theme.spacing.md,
+        }}
       >
         <ScrollView>
           <Text h2 style={{ paddingBottom: theme.spacing.md }}>
@@ -98,23 +130,34 @@ export default function DriverGasStationTransactions() {
                 <View
                   style={{
                     flexDirection: "row",
-                    width: '100%',
+                    width: "100%",
                     justifyContent: "space-between",
                     marginTop: theme.spacing.sm,
                   }}
                 >
                   <Text>Quantidade: {product.quantity}</Text>
-                  <Text>Preço: R$ {product.price}</Text>
+                  <Text>Preço: R$ {utils.masks.valueToReal(product.price)}</Text>
                 </View>
-                <Text style={{ width: '100%', fontWeight: "bold", textAlign: 'right' }}>
-                  Total: R$ {product.totalValue}
+                <Text
+                  style={{
+                    width: "100%",
+                    fontWeight: "bold",
+                    textAlign: "right",
+                  }}
+                >
+                  Total: R$ {utils.masks.valueToReal(product.totalValue)}
                 </Text>
               </ListItem.Content>
             </ListItem>
           ))}
-          <Button title="Fechar" onPress={() => setVisible(false)} />
+          <Button
+            title="Fechar"
+            onPress={() => setVisible(false)}
+            radius={theme.spacing.md}
+          />
         </ScrollView>
       </Overlay>
     </View>
   );
 }
+true;

@@ -1,6 +1,7 @@
 export { default as AwaitingIcon } from './AwaitingIcon';
 export { default as BiometricIcon } from './BiometricIcon';
 export { default as CarIcon } from './CarIcon';
+export { default as CartIcon } from './CartIcon';
 export { default as CircleIcon } from './CircleIcon';
 export { default as ConfirmedIcon } from './ConfirmedIcon';
 export { default as DigitalSignatureIcon } from './DigitalSignatureIcon';

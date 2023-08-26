@@ -75,6 +75,7 @@ export default function GasStationsDialog({
   };
 
   const opeTransactionsList = (transactions, name) => {
+    console.log(JSON.stringify(transactions, undefined, 2))
     router.push({
       pathname: "/DriverGasStationTransactions",
       params: {
