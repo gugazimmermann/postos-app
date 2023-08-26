@@ -38,7 +38,8 @@ export default function GasStationsDialog({
     });
   };
 
-  const handleSignatureTypes = (signatures) => {
+  const handleSignatureTypes = (signatures, driverSignatures) => {
+    const driverSignaturesArray = driverSignatures.map((s) => s.type);
     return signatures.map((signature) => {
       let IconComponent;
       switch (signature.type) {
@@ -58,7 +59,13 @@ export default function GasStationsDialog({
         <IconComponent
           key={signature.type}
           size={36}
-          color={signature.active ? theme.colors.success : theme.colors.grey3}
+          color={
+            signature.active
+              ? driverSignaturesArray.includes(signature.type)
+                ? theme.colors.primary
+                : theme.colors.success
+              : theme.colors.grey4
+          }
         />
       );
     });
@@ -75,7 +82,7 @@ export default function GasStationsDialog({
   };
 
   const opeTransactionsList = (transactions, name) => {
-    console.log(JSON.stringify(transactions, undefined, 2))
+    console.log(JSON.stringify(transactions, undefined, 2));
     router.push({
       pathname: "/DriverGasStationTransactions",
       params: {
@@ -180,11 +187,11 @@ export default function GasStationsDialog({
           { padding: theme.spacing.md },
         ]}
       >
-        {gasStation?.driver?.signatures.length > 0 ? (
-          handleSignatureTypes(gasStation.driver.signatures)
-        ) : (
-          <Text>Nenhuma Assinatura Cadastrada</Text>
-        )}
+        {gasStation?.signatures?.length > 0 &&
+          handleSignatureTypes(
+            gasStation.signatures,
+            gasStation?.driver?.signatures || []
+          )}
       </View>
       <Divider
         color={theme.colors.divider}
@@ -197,18 +204,21 @@ export default function GasStationsDialog({
         ]}
       >
         {gasStation?.vehicle?.transactions?.length > 0 ? (
-          <View style={styles.gasStation.dialogContactContainer}>
-            <Pressable
-              onPress={() =>
-                opeTransactionsList(gasStation.vehicle.transactions, gasStation.name)
-              }
-            >
-              <Text style={{ marginRight: theme.spacing.sm }}>
-                {gasStation?.vehicle?.transactions?.length} Abastecimentos Realizados
-              </Text>
-            </Pressable>
+          <Pressable
+            onPress={() =>
+              opeTransactionsList(
+                gasStation.vehicle.transactions,
+                gasStation.name
+              )
+            }
+            style={styles.gasStation.dialogContactContainer}
+          >
+            <Text style={{ marginRight: theme.spacing.sm }}>
+              {gasStation?.vehicle?.transactions?.length} Abastecimentos
+              Realizados
+            </Text>
             <OpenIcon size={26} color={theme.colors.text} />
-          </View>
+          </Pressable>
         ) : (
           <Text>Nenhum Abastecimento Realizado</Text>
         )}
