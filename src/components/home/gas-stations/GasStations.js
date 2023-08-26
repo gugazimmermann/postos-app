@@ -44,7 +44,6 @@ export default function GasStations({ gasStations }) {
         location.longitude
       );
     }
-    console.log(JSON.stringify(orderData, undefined, 2));
     setGasStationsData(orderData || data);
   };
 
