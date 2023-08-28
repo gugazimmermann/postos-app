@@ -5,11 +5,11 @@ import styles from "../../styles";
 export default function Wellcome({ returning }) {
   const { mode } = useThemeMode();
   const { theme } = useTheme();
-  
+
   const logo =
-  mode === "light"
-    ? require("../../images/logo144.png")
-    : require("../../images/logo144_inverted.png");
+    mode === "light"
+      ? require("../../images/logo144.png")
+      : require("../../images/logo144_inverted.png");
 
   return (
     <View style={styles.signIn.container}>
@@ -27,7 +27,7 @@ export default function Wellcome({ returning }) {
             Bem Vindo ao
           </Text>
           <Text h1 style={{ textAlign: "center" }}>
-            Touch Sistemas - Postos
+            {process.env.EXPO_PUBLIC_TITLE}
           </Text>
         </>
       ) : (

@@ -20,7 +20,7 @@ export default function Logo() {
         style={[styles.logo.image, { marginRight: theme.spacing.md }]}
       />
       <Text h3 style={{ textAlign: "center" }}>
-        Touch Sistemas - Postos
+        {process.env.EXPO_PUBLIC_TITLE}
       </Text>
     </View>
   );

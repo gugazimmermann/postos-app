@@ -11,7 +11,7 @@ https://www.touchsistemas.com.br
 
 My IPs:
 
-win: 192.168.249.7
+win: 192.168.1.2
 
 note: 10.255.241.197
 

@@ -19,7 +19,7 @@ export default function CompaniesDialog({
     setLoading(true);
     try {
       const res = await fetch(
-        `http://192.168.1.2:5000/app/vehicles/${checked.Company.id}/${checked.id}`
+        `${process.env.EXPO_PUBLIC_API_URL}/vehicles/${checked.Company.id}/${checked.id}`
       );
       if (!res.ok) throw new Error("Houve um erro ao carregar veículos");
       const data = await res.json();

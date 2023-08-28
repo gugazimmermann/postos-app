@@ -35,3 +35,6 @@ yarn-error.*
 *.tsbuildinfo
 
 .theme_sample.json
+
+.env.development
+.env.production
