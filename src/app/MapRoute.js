@@ -36,7 +36,7 @@ export default function MapRoute() {
     try {
       const start = "-26.9040195,-48.6740984";
       const end = `${latitude},${longitude}`;
-      const apiKey = "58c34e31-fac4-4417-8d87-ff62270593ed";
+      const apiKey = process.env.EXPO_PUBLIC_GRAPHHOPPER_API_KEY;
       const url = `https://graphhopper.com/api/1/route?point=${start}&point=${end}&vehicle=car&locale=pt&key=${apiKey}&type=json`;
       const res = await fetch(url);
       if (!res.ok) throw new Error("Erro ao buscar rota");
