@@ -19,18 +19,24 @@ export default function CompaniesDialog({
     setLoading(true);
     try {
       const res = await fetch(
-        `http://10.255.241.197:5000/app/vehicles/${checked.id}/${user?.driver?.id}`
+        `http://192.168.1.2:5000/app/vehicles/${checked.Company.id}/${checked.id}`
       );
       if (!res.ok) throw new Error("Houve um erro ao carregar veículos");
       const data = await res.json();
       if (Array.isArray(data) && data.length) {
         await utils.storage.save("driver", {
           ...user,
-          company: checked,
+          company: checked.Company,
           vehiclesList: data,
-          vehicle: null
+          vehicle: null,
         });
-        signIn({ ...user, company: checked, vehiclesList: data, vehicle: null });
+        signIn({
+          ...user,
+          driver: { id: checked.id, name: checked.name },
+          company: checked.Company,
+          vehiclesList: data,
+          vehicle: null,
+        });
         toggleCompaniesAction();
         toggleVehiclesAction();
       } else if (Array.isArray(data) && !data.length) {
@@ -51,12 +57,12 @@ export default function CompaniesDialog({
       {(user?.companiesList || []).map((c) => (
         <CheckBox
           containerStyle={{ backgroundColor: theme.colors.background }}
-          key={c.id}
-          title={c.name}
+          key={c.Company.id}
+          title={c.Company.name}
           textStyle={{ color: theme.colors.text }}
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"
-          checked={checked?.id === c.id}
+          checked={checked?.Company?.id === c.Company.id}
           onPress={() => setChecked(c)}
         />
       ))}

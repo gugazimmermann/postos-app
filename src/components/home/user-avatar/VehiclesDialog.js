@@ -25,7 +25,7 @@ export default function VehiclesDialog({
         <CheckBox
           containerStyle={{ backgroundColor: theme.colors.background }}
           key={v.id}
-          title={`${v.manufacturer} / ${v.model} - ${v.plate}`}
+          title={`${v.plate} - ${v.manufacturer} / ${v.model}`}
           textStyle={{ color: theme.colors.text }}
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"

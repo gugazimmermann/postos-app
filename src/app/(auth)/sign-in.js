@@ -65,7 +65,7 @@ export default function Home() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://10.255.241.197:5000/app/vehicles/${companyID}/${driverID}`
+        `http://192.168.1.2:5000/app/vehicles/${companyID}/${driverID}`
       );
       if (!res.ok) throw new Error("Houve um erro ao carregar veículos");
       const data = await res.json();
@@ -84,23 +84,26 @@ export default function Home() {
   };
 
   const confirmCompany = (value) => {
-    const selectedCompany = companiesList.find((x) => x.id === value);
+    const selectedData = companiesList.find((d) => d.Company.id === value);
+    const selectedDriver = { id: selectedData.id, name: selectedData.name };
+    const selectedCompany = { id: selectedData.Company.id, name: selectedData.Company.name };
+    setDriver(selectedDriver);
     setCompany(selectedCompany);
-    saveDataToStorage({ driver, company: selectedCompany, companiesList });
-    getVehicles(selectedCompany.id, driver.id);
+    saveDataToStorage({
+      driver: selectedDriver,
+      company: selectedCompany,
+      companiesList,
+    });
+    getVehicles(selectedCompany.id, selectedDriver.id);
   };
 
   const confirmDriver = (data) => {
-    const d = { id: data[0].id, name: data[0].name };
-    setDriver(d);
     if (data.length > 1) {
-      const companies = data.map((x) => ({
-        id: x.Company.id,
-        name: x.Company.name,
-      }));
-      setCompaniesList(companies);
+      setCompaniesList(data);
     } else {
+      const d = { id: data[0].id, name: data[0].name };
       const c = { id: data[0].Company.id, name: data[0].Company.name };
+      setDriver(d);
       setCompany(c);
       saveDataToStorage({ driver: d, company: c, companiesList: [] });
       getVehicles(c.id, d.id);
@@ -110,7 +113,7 @@ export default function Home() {
   const getDriver = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://10.255.241.197:5000/app/driver/${cpf}`);
+      const res = await fetch(`http://192.168.1.2:5000/app/driver/${cpf}`);
       if (!res.ok) throw new Error("Houve um erro ao verificar o CPF");
       const data = await res.json();
       if (Array.isArray(data) && data.length) {
@@ -226,7 +229,7 @@ export default function Home() {
                   value=""
                 />
                 {companiesList.map((c) => (
-                  <Picker.Item key={c.id} label={c.name} value={c.id} />
+                  <Picker.Item key={c.Company.id} label={c.Company.name} value={c.Company.id} />
                 ))}
               </Picker>
             </View>
