@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "78606081651",
+    "project_id": "touch-sistemas--postos",
+    "storage_bucket": "touch-sistemas--postos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78606081651:android:93715780bb2b2065181406",
+        "android_client_info": {
+          "package_name": "br.com.touchsistemas.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78606081651-v4ueumaprt7mvt8tqqk014632s8042di.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.touchsistemas.app",
+            "certificate_hash": "0a57ab1db273bd2ba976a73d9cbd67339bfbb4dd"
+          }
+        },
+        {
+          "client_id": "78606081651-acucoeva8u56lfm2tou047u6hl863lli.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgLVNLxpjghlIF6Mw3k8p7w3Wn3UEo_N8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78606081651-acucoeva8u56lfm2tou047u6hl863lli.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

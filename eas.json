@@ -1,0 +1,39 @@
+{
+  "cli": {
+    "version": ">= 4.1.2"
+  },
+  "build": {
+    "development": {
+      "channel": "development",
+      "distribution": "internal",
+      "developmentClient": true,
+      "env": {
+        "EXPO_PUBLIC_TITLE": "Touch Sistemas - Postos",
+        "EXPO_PUBLIC_API_URL": "https://postos-api.touchsistemas.com.br/app"
+      }
+    },
+    "preview": {
+      "channel": "preview",
+      "distribution": "internal",
+      "developmentClient": true,
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      },
+      "env": {
+        "EXPO_PUBLIC_TITLE": "Touch Sistemas - Postos",
+        "EXPO_PUBLIC_API_URL": "https://postos-api.touchsistemas.com.br/app"
+      }
+    },
+    "production": {
+      "channel": "production",
+      "env": {
+        "EXPO_PUBLIC_TITLE": "Touch Sistemas - Postos",
+        "EXPO_PUBLIC_API_URL": "https://postos-api.touchsistemas.com.br/app"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

@@ -39,3 +39,6 @@ yarn-error.*
 # ignores all .env files
 .env.development
 .env.production
+
+# extra files
+extras/

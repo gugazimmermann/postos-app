@@ -39,6 +39,20 @@ note: 10.255.241.197
 
 `npx expo config --type introspect`
 
+`eas build -p android --profile preview`
+
+### update
+
+`eas update --branch [channel] --message [message]`
+
+`eas update --branch preview --message "Updating the app"`
+
+### Development Server
+
+`npx expo start --dev-client`
+
+use `ExpoPushToken` in https://expo.dev/notifications
+
 ### Libs
 
 https://react-native-async-storage.github.io/async-storage/docs/usage/
